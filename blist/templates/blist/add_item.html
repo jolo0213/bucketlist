@@ -1,0 +1,14 @@
+<h1>{{ bucket.bl_name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<ul>
+{% for item in bucket.item_set.all %}
+    <li>{{ item.item_value }}</li>
+{% endfor %}
+</ul>
+<form action="." method="post" id='add-item-form'>
+{% csrf_token %}
+{{ form.as_table }}
+<input type="submit" value="Submit" />
+</form>

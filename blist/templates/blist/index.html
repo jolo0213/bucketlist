@@ -1,0 +1,12 @@
+<h1>Lists</h1>
+
+{% if bucket_list %}
+	<ul>
+	{% for bucket in bucket_list %}
+		<li><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>You have not made a list yet. Make one now: </p>
+{% endif %}
+<a href="/blist/add_list.html">Add List</a>
