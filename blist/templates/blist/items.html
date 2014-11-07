@@ -7,8 +7,9 @@
     <li>{{ item.item_value }}</li>
 {% endfor %}
 </ul>
+
 <form action="." method="post" id='add-item-form'>
-{% csrf_token %}
-{{ form.as_table }}
-<input type="submit" value="Submit" />
+	{% csrf_token %}
+	{{ form.as_table }}
+	<input type="submit" value="Submit" />
 </form>
