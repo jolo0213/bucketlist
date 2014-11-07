@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
@@ -6,6 +8,7 @@ from blist.models import BL, Item
 from blist.forms import ItemForm, BLForm
 
 # Create your views here.
+@login_required
 def index(request):
 	bucket_list = BL.objects.all()
 	if request.method == 'POST':
@@ -17,12 +20,9 @@ def index(request):
 		add_list_form = BLForm()
 	return render(request,'blist/index.html',{'bucket_list':bucket_list,'form':add_list_form})
 
+@login_required
 def items(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id)
-	return render(request,'blist/items.html',{'bucket':bucket})
-
-def add(request, bucket_id):
-	bucket = get_object_or_404(BL,pk=bucket_id) 
 	if request.method == 'POST':
 		add_form = ItemForm(request.POST)
 		if add_form.is_valid():
@@ -32,4 +32,14 @@ def add(request, bucket_id):
 			return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
 	else:
 		add_form = ItemForm()
-	return render(request, 'blist/add_item.html',{'bucket':bucket, 'form': add_form})
+	return render(request,'blist/items.html',{'bucket':bucket,'form':add_form})
+
+def register(request):
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			new_user = form.save()
+			return HttpResponseRedirect("/blist/")
+	else:
+		form = UserCreationForm()
+	return render(request, "blist/register.html", {'form': form,})

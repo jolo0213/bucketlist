@@ -7,4 +7,8 @@
     <li>{{ item.item_value }}</li>
 {% endfor %}
 </ul>
-<a href="{% url 'blist:add' bucket.id %}">Add Item</a>
+<form action="." method="post" id='add-item-form'>
+{% csrf_token %}
+{{ form.as_table }}
+<input type="submit" value="Submit" />
+</form>
