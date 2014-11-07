@@ -1,5 +1,7 @@
 <h1>Lists</h1>
 
+<p>Welcome {{ user.username }} | <a href="/logout/">Logout</a></p>
+
 <ul>
 {% for bucket in bucket_list %}
 	<li><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a></li>
