@@ -1,8 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} | {{ bucket.bl_name }}{% endblock %}
+
+{% block content %}
+
 <h1>{{ bucket.bl_name }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-<p>Welcome {{ user.username }} | <a href="/logout/">Logout</a></p>
 
 <ul>
 {% for item in bucket.item_set.all %}
@@ -12,8 +16,14 @@
 
 <form action="." method="post" id='add-item-form'>
 	{% csrf_token %}
-	{{ form.as_table }}
-	<input type="submit" value="Submit" />
+	<table class="form-table">
+	<tr>
+    	<td>{{ form.item_value }}</td>
+    	<td><input type="submit" value="Add Item" /></td>
+	</tr>
+	</table>
 </form>
 
 <a href='/blist/'>Back</a>
+
+{% endblock %}
