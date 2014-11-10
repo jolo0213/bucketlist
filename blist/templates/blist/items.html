@@ -2,6 +2,8 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
+<p>Welcome {{ user.username }} | <a href="/logout/">Logout</a></p>
+
 <ul>
 {% for item in bucket.item_set.all %}
     <li>{{ item.item_value }} <b><a href="{% url 'delete_item' item.pk %}" style='color:red'>X</a></b></li>
@@ -13,3 +15,5 @@
 	{{ form.as_table }}
 	<input type="submit" value="Submit" />
 </form>
+
+<a href='/blist/'>Back</a>
