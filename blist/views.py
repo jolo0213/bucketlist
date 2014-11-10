@@ -36,6 +36,11 @@ def items(request, bucket_id):
 		add_form = ItemForm()
 	return render(request,'blist/items.html',{'bucket':bucket,'form':add_form})
 
+@login_required
+def details(request, item_id):
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	return render(request,'blist/details.html',{'item':item,})
+
 def register(request):
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)

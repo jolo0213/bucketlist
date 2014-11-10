@@ -10,7 +10,7 @@
 
 <ul>
 {% for item in bucket.item_set.all %}
-    <li>{{ item.item_value }} <b><a href="{% url 'delete_item' item.pk %}" style='color:red'>X</a></b></li>
+    <li><a href="{% url 'blist:details' item.id %}">{{ item.item_value }}</a> <b><a href="{% url 'delete_item' item.pk %}" style='color:red'>X</a></b></li>
 {% endfor %}
 </ul>
 
@@ -22,8 +22,9 @@
     	<td><input type="submit" value="Add Item" /></td>
 	</tr>
 	</table>
+
 </form>
 
-<a href='/blist/'>Back</a>
+<br><a href='/blist/'>Back</a>
 
 {% endblock %}
