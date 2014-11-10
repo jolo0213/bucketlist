@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 class BL(models.Model):
-	owner = models.ForeignKey(User)
+	owner = models.ForeignKey(settings.AUTH_USER_MODEL)
 	bl_name = models.CharField(max_length=50)
 
 	def __str__(self):
