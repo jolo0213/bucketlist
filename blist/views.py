@@ -47,8 +47,9 @@ def register(request):
 @login_required
 def delete_item(request, item_id):
 	item = get_object_or_404(Item,pk=item_id)
+	bucket = item.bucket
 	item.delete()
-	return HttpResponseRedirect('/blist/')
+	return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
 
 @login_required
 def delete_bucket(request, bucket_id):
