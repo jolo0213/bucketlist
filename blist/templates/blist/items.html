@@ -10,7 +10,7 @@
 
 <ul>
 {% for item in bucket.item_set.all %}
-    <li><a href="{% url 'blist:details' item.id %}">{{ item.item_value }}</a> <b><a href="{% url 'delete_item' item.pk %}" style='color:red'>X</a></b></li>
+    <li><a href="{% url 'blist:details' item.pk %}">{{ item.item_value }}</a> <b><a href="{% url 'delete_item' item.pk %}" style='color:red'>X</a></b></li>
 {% endfor %}
 </ul>
 
