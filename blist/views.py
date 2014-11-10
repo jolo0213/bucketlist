@@ -10,11 +10,13 @@ from blist.forms import ItemForm, BLForm
 # Create your views here.
 @login_required
 def index(request):
-	bucket_list = BL.objects.all()
+	bucket_list = BL.objects.filter(owner=request.user)
 	if request.method == 'POST':
 		add_list_form = BLForm(request.POST)
 		if add_list_form.is_valid():
-			bucket_list = add_list_form.save()
+			bucket_list = add_list_form.save(commit=False)
+			bucket_list.owner = request.user
+			bucket_list.save()
 			return HttpResponseRedirect(reverse('blist:items', args=[bucket_list.pk]))
 	else:
 		add_list_form = BLForm()
@@ -22,7 +24,7 @@ def index(request):
 
 @login_required
 def items(request, bucket_id):
-	bucket = get_object_or_404(BL,pk=bucket_id)
+	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
 	if request.method == 'POST':
 		add_form = ItemForm(request.POST)
 		if add_form.is_valid():
@@ -46,13 +48,13 @@ def register(request):
 
 @login_required
 def delete_item(request, item_id):
-	item = get_object_or_404(Item,pk=item_id)
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
 	bucket = item.bucket
 	item.delete()
 	return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
 
 @login_required
 def delete_bucket(request, bucket_id):
-	bucket = get_object_or_404(BL,pk=bucket_id)
+	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
 	bucket.delete()
 	return HttpResponseRedirect('/blist/')
