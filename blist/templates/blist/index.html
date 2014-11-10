@@ -4,7 +4,7 @@
 
 <ul>
 {% for bucket in bucket_list %}
-	<li><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a></li>
+	<li><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a> <b><a href="{% url 'delete_bucket' bucket.pk %}" style='color:red'>X</a></b></li>
 {% endfor %}
 </ul>
 

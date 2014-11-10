@@ -4,7 +4,7 @@
 
 <ul>
 {% for item in bucket.item_set.all %}
-    <li>{{ item.item_value }}</li>
+    <li>{{ item.item_value }} <b><a href="{% url 'delete_item' item.pk %}" style='color:red'>X</a></b></li>
 {% endfor %}
 </ul>
 

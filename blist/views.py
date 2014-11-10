@@ -43,3 +43,15 @@ def register(request):
 	else:
 		form = UserCreationForm()
 	return render(request, "blist/register.html", {'form': form,})
+
+@login_required
+def delete_item(request, item_id):
+	item = get_object_or_404(Item,pk=item_id)
+	item.delete()
+	return HttpResponseRedirect('/blist/')
+
+@login_required
+def delete_bucket(request, bucket_id):
+	bucket = get_object_or_404(BL,pk=bucket_id)
+	bucket.delete()
+	return HttpResponseRedirect('/blist/')
