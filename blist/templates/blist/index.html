@@ -6,7 +6,15 @@
 
 <ul>
 {% for bucket in bucket_list %}
-	<li><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a> <b><a href="{% url 'delete_bucket' bucket.pk %}" style='color:red'>X</a></b></li>
+	<li>
+		{% if bucket.favorite == False %}
+			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:green'>+</a></b> 
+		{% else %}
+			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:red'>-</a></b> 
+		{% endif %}
+		<a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a> 
+		<b><a href="{% url 'delete_bucket' bucket.pk %}" style='color:red'>X</a></b>
+	</li>
 {% endfor %}
 </ul>
 

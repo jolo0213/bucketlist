@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Favorite Lists</h1>
+
+{% for bucket in bucket_list %}
+	<b>{{ bucket.bl_name }}</b><br>
+	<ul>
+	{% for item in bucket.item_set.all %}
+    	<li>{{ item.item_value }}</li>
+	{% endfor %}
+	</ul><br>
+{% endfor %}
+
+{% endblock %}

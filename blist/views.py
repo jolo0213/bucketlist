@@ -82,3 +82,17 @@ def edit_details(request, item_id):
 		form = ItemForm()
 	return render(request,'blist/edit.html', {'item':item,'form':form})
 	
+@login_required
+def favorites(request):
+	bucket_list = BL.objects.filter(owner=request.user,favorite=True)
+	return render(request,'blist/favorites.html', {'bucket_list':bucket_list,})
+
+@login_required
+def mod_favorite(request, bucket_id):
+	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
+	if (bucket.favorite == False):
+		bucket.favorite = True
+	else:
+		bucket.favorite = False
+	bucket.save()
+	return HttpResponseRedirect('/blist/')
