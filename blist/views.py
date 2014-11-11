@@ -20,7 +20,7 @@ def index(request):
 			return HttpResponseRedirect(reverse('blist:items', args=[bucket_list.pk]))
 	else:
 		add_list_form = BLForm()
-	return render(request,'blist/index.html',{'bucket_list':bucket_list,'form':add_list_form})
+	return render(request,'blist/index.html', {'bucket_list':bucket_list,'form':add_list_form})
 
 @login_required
 def items(request, bucket_id):
@@ -34,12 +34,12 @@ def items(request, bucket_id):
 			return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
 	else:
 		add_form = ItemForm()
-	return render(request,'blist/items.html',{'bucket':bucket,'form':add_form})
+	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form})
 
 @login_required
 def details(request, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-	return render(request,'blist/details.html',{'item':item,})
+	return render(request,'blist/details.html', {'item':item,})
 
 def register(request):
 	if request.method == 'POST':
@@ -63,3 +63,21 @@ def delete_bucket(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
 	bucket.delete()
 	return HttpResponseRedirect('/blist/')
+
+@login_required
+def edit_details(request, item_id):
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	if request.method == 'POST':
+		form = ItemForm(request.POST)
+		if form.is_valid():
+			edit_item = Item.objects.get(pk=item_id)
+			form = ItemForm(request.POST,instance=edit_item)
+			form.save()
+			return HttpResponseRedirect(reverse('blist:details', args=[edit_item.pk]))
+		else:
+			edit_item = Item.objects.get(pk=item_id)
+			form = ItemForm(instance=edit_item)
+			return HttpResponseRedirect(reverse('blist:details', args=[edit_item.pk]))
+	else:
+		form = ItemForm
+	return render(request,'blist/edit.html', {'item':item,'form':form})
