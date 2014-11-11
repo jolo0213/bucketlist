@@ -8,12 +8,12 @@
 {% for bucket in bucket_list %}
 	<tr>
 		<td>{% if bucket.favorite == False %}
-			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:green'>+</a></b>
+			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:black'>&#9733;</a></b>
 		{% else %}
-			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:red'>-</a></b>
+			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:gold'>&#9733;</a></b>
 		{% endif %}</td>
 		<td><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a></td>
-		<td><b><a href="{% url 'delete_bucket' bucket.pk %}" style='color:red'>X</a></b></td>
+		<td><b><a href="{% url 'delete_bucket' bucket.pk %}" style='color:red'>&#x2717;</a></b></td>
 	</tr>
 {% endfor %}
 </table>

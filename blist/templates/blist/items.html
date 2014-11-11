@@ -12,13 +12,13 @@
 {% for item in bucket.item_set.all %}
     <li>
     	{% if item.finish == NULL %}
-    		<b><a href="{% url 'finish' item.pk %}" style='color:green'>Check</a></b> 
+    		<b><a href="{% url 'finish' item.pk %}" style='color:green'>&#x2713;</a></b> 
     		<a href="{% url 'blist:details' item.pk %}">{{ item.item_value }}</a> 
     	{% else %}
     		<a href="{% url 'blist:details' item.pk %}" style='color:green'>{{ item.item_value }}</a> 
     		<finish>[Completed: {{ item.finish }}]</finish>
     	{% endif %} 
-    	<b><a href="{% url 'delete_item' item.pk %}" style='color:red'>X</a></b>
+    	<b><a href="{% url 'delete_item' item.pk %}" style='color:red'>&#x2717;</a></b>
     </li>
 {% endfor %}
 </ul>
