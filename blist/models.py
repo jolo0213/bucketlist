@@ -12,5 +12,7 @@ class BL(models.Model):
 class Item(models.Model):
 	bucket = models.ForeignKey(BL)
 	item_value = models.CharField(max_length=200)
+	item_url = models.URLField(max_length=200,null=True,blank=True)
+	item_desc = models.CharField(max_length=1000,null=True,blank=True)
 	def __str__(self):
 		return self.item_value
