@@ -81,3 +81,4 @@ def edit_details(request, item_id):
 	else:
 		form = ItemForm
 	return render(request,'blist/edit.html', {'item':item,'form':form})
+	

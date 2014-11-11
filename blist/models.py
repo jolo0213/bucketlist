@@ -16,3 +16,4 @@ class Item(models.Model):
 	item_desc = models.CharField(max_length=1000,null=True)
 	def __str__(self):
 		return self.item_value
+		
