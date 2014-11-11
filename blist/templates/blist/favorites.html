@@ -8,7 +8,12 @@
 	<b>{{ bucket.bl_name }}</b><br>
 	<ul>
 	{% for item in bucket.item_set.all %}
-    	<li>{{ item.item_value }}</li>
+    	<li>{% if item.finish == NULL %} 
+    			{{ item.item_value }}
+    		{% else %}
+    			<fin>{{ item.item_value }}</fin> 
+    			<finish>[Completed: {{ item.finish }}]</finish>
+    		{% endif %}</li>
 	{% endfor %}
 	</ul><br>
 {% endfor %}

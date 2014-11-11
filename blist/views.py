@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -96,3 +98,10 @@ def mod_favorite(request, bucket_id):
 		bucket.favorite = False
 	bucket.save()
 	return HttpResponseRedirect('/blist/')
+
+@login_required
+def finish(request, item_id):
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	item.finish = datetime.now()
+	item.save()
+	return HttpResponseRedirect(reverse('blist:items', args=[item.bucket.pk]))

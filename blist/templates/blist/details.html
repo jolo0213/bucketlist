@@ -9,6 +9,12 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <table>
+{% if item.finish != NULL %} 
+<tr>
+	<td>Completed: </td>
+	<td>{{ item.finish }}</td>
+</tr>
+{% endif %}
 <tr>
 	<td>URL: </td>
 	<td>{{ item.item_url }}</td>
