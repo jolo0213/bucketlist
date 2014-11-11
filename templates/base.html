@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bucket List{% block title %}{% endblock %}</title>
+    <style>
+    #nav {
+        width:10%;
+        float:left;
+        padding:5px;
+        margin-top:20px; 
+    }
+    
+    #main {
+        margin-left: 10%;
+        padding:5px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="nav">
+        {% block sidebar %}
+        {% if user.is_authenticated %}
+        <p>Welcome {{ user.username }}!</p>
+        <ul>
+            <li><a href="/blist/">My Lists</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
+        {% else %}
+        <p>Please login or register!</p>
+        <ul>
+            <li><a href="/login/">Login</a></li>
+            <li><a href="/register/">Register</a></li>
+        </ul>
+        {% endif%}
+        {% endblock %}
+    </div>
+
+    <div id="main">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
