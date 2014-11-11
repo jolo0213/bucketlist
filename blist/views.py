@@ -79,6 +79,6 @@ def edit_details(request, item_id):
 			form = ItemForm(instance=edit_item)
 			return HttpResponseRedirect(reverse('blist:details', args=[edit_item.pk]))
 	else:
-		form = ItemForm
+		form = ItemForm()
 	return render(request,'blist/edit.html', {'item':item,'form':form})
 	

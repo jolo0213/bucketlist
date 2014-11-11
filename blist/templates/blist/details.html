@@ -4,20 +4,22 @@
 
 {% block content %}
 
-<h1>{{ item.item_value }}</h1>
+<h1>{{ item.bucket }} | {{ item.item_value }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<table><tr><td>URL: </td><td>{{ item.item_url }}</td></tr>
-<tr><td>Description: </td><td>{{ item.item_desc }}</td></tr></table>
+<table>
+<tr>
+	<td>URL: </td>
+	<td>{{ item.item_url }}</td>
+</tr>
+<tr>
+	<td>Description: </td>
+	<td>{{ item.item_desc }}</td>
+</tr>
+</table>
 
-<<<<<<< HEAD
-<br><a href="{% url 'blist:items' item.bucket.id %}">Back</a>
-
-{% endblock %}
-=======
 <br><a href="{% url 'blist:edit' item.pk %}">Edit</a>
 <br><a href="{% url 'blist:items' item.bucket.id %}">Back</a>
 
 {% endblock %}
->>>>>>> itemdetails
