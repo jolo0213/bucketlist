@@ -84,6 +84,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = ''
+
+STATICFILES_DIR = os.path.join(BASE_DIR, 'static')
+
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/blist/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

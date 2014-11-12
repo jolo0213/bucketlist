@@ -1,0 +1,23 @@
+#nav {
+    width:10%;
+    float:left;
+    padding:5px;
+    margin-top:20px; 
+}
+
+#main {
+    margin-left: 10%;
+    padding:5px;
+}
+
+finish {
+    font-size:10px;
+}
+
+fin {
+    color:green;
+}
+
+a:link, a:visited, a:hover, a:active {
+    text-decoration:none;
+}
