@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %} | Search {{ query }}{% endblock %}
+
+{% block content %}
+
+<h1>Search</h1>
+
+<form action="" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Search">
+</form>
+
+{% if error %}<p style="color: red">Please enter a value.</p>{% endif %}
+
+
+	<p>Search results for {{ query }}.</p>
+
+
+{% if items %}
+	<p>Found {{ items|length }} item{{ items|pluralize }}.</p>
+		<ul>
+			{% for item in items %}
+			<li>{% if item.finish == NULL %}
+    				<a href="{% url 'blist:details' item.pk %}">{{ item.item_value }}</a> 
+    			{% else %}
+    				<a href="{% url 'blist:details' item.pk %}" style='color:green'>{{ item.item_value }}</a> 
+   		    	{% endif %} - in list <a href="{% url 'blist:items' item.bucket.id %}">{{ item.bucket }}</a></li>
+			{% endfor %}
+		</ul>
+{% else %}
+	<p>No items matched your search criteria.</p>
+{% endif %}
+
+{% endblock %}

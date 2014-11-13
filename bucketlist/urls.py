@@ -15,5 +15,6 @@ urlpatterns = patterns('',
 	url(r'^delete_bl/(?P<bucket_id>\d+)/$', views.delete_bucket, name='delete_bucket'),
 	url(r'^mod_fav_bl/(?P<bucket_id>\d+)/$', views.mod_favorite, name='mod_fav_bl'),
 	url(r'^finish/(?P<item_id>\d+)/$', views.finish, name='finish'),
+	url(r'^search/$', views.search, name='search'),
 	url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )

@@ -105,3 +105,15 @@ def finish(request, item_id):
 	item.finish = datetime.now()
 	item.save()
 	return HttpResponseRedirect(reverse('blist:items', args=[item.bucket.pk]))
+
+@login_required
+def search(request):
+	error = False
+	if 'q' in request.GET:
+		q = request.GET['q']
+		if not q:
+			error = True
+		else:
+			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
+			return render(request, 'blist/search.html', {'items':item,'query':q})
+	return render(request, 'blist/search.html', {'error':error})
