@@ -8,6 +8,7 @@ Current Features:
  - items can have optional URLs or descriptions
  - users can mark favorite lists for easy lookup
  - users can check off which items have been completed
+ - users can search for items (not lists)
 
 Future Additions:
  - edit item descriptions without leaving list screen (quick edit)

@@ -8,7 +8,7 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<ul>
+<ul id='sortable'>
 {% for item in bucket.item_set.all %}
     <li>
     	{% if item.finish == NULL %}
