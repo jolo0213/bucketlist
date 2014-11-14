@@ -3,18 +3,31 @@
 {% block title %} | Search {{ query }}{% endblock %}
 
 {% block head %}
+<!--
+On this page I want to add an autocomplete feature just to test it out. I want to be able to set the source to be all items whose bucket.owner matches the current user.
+
+I believe I can pass that through the view context using something like:
+source = Item.objects.filter(bucket__owner=request.user)
+
+And then passing it to here in the context as 'source':source. Now to link it here, does {{ source }} work in the Javascript?
+-->
+<script>
+	$("#autocomplete").autocomplete({
+		source: {{ source }}
+	});
+</script>
 {% endblock %}
 {% block content %}
 
 <h1>Search</h1>
 
 <form action="" method="get">
-    <input type="text" name="q">
-    <input type="submit" value="Search">
+    <label for 'autocomplete'>Search for: </label>
+    <input type="text" name="q" id='autocomplete'>
+    <input type="submit" value="Find">
 </form>
 
 {% if error %}<p style="color: red">Please enter a value.</p>{% endif %}
-
 
 	<p>Search results for {{ query }}.</p>
 

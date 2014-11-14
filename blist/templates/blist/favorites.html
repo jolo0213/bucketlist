@@ -11,8 +11,7 @@
     	<li>{% if item.finish == NULL %} 
     			{{ item.item_value }}
     		{% else %}
-    			<fin>{{ item.item_value }}</fin> 
-    			<finish>[Completed: {{ item.finish }}]</finish>
+    			<fin title="Completed: {{ item.finish }}">{{ item.item_value }}</fin>
     		{% endif %}</li>
 	{% endfor %}
 	</ul><br>

@@ -55,10 +55,13 @@ def register(request):
 
 @login_required
 def delete_item(request, item_id):
-	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-	bucket = item.bucket
-	item.delete()
-	return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
+	if request.is_ajax():
+		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+		# bucket = item.bucket
+		item.delete()
+		return HttpResponse(status=200)
+	return HttpResponse(status=403)
+	# return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
 
 @login_required
 def delete_bucket(request, bucket_id):
@@ -108,6 +111,7 @@ def finish(request, item_id):
 
 @login_required
 def search(request):
+	source = Item.objects.filter(bucket__owner=request.user)
 	error = False
 	if 'q' in request.GET:
 		q = request.GET['q']
@@ -116,4 +120,4 @@ def search(request):
 		else:
 			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
 			return render(request, 'blist/search.html', {'items':item,'query':q})
-	return render(request, 'blist/search.html', {'error':error})
+	return render(request, 'blist/search.html', {'error':error, 'source':source})
