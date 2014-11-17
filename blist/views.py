@@ -57,17 +57,17 @@ def register(request):
 def delete_item(request, item_id):
 	if request.is_ajax():
 		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-		# bucket = item.bucket
 		item.delete()
 		return HttpResponse(status=200)
 	return HttpResponse(status=403)
-	# return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
 
 @login_required
 def delete_bucket(request, bucket_id):
-	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
-	bucket.delete()
-	return HttpResponseRedirect('/blist/')
+	if request.is_ajax():
+		bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
+		bucket.delete()
+		return HttpResponse(status=200)
+	return HttpResponse(status=403)
 
 @login_required
 def edit_details(request, item_id):

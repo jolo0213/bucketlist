@@ -9,6 +9,7 @@ Current Features:
  - users can mark favorite lists for easy lookup
  - users can check off which items have been completed
  - users can search for items (not lists)
+ - jquery ui widgets add cleaner look and delete confirmation
 
 Future Additions:
  - edit item descriptions without leaving list screen (quick edit)

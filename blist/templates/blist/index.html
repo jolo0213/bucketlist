@@ -13,10 +13,12 @@
 			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:gold'>&#9733;</a></b>
 		{% endif %}</td>
 		<td><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a></td>
-		<td><b><a href="{% url 'delete_bucket' bucket.pk %}" style='color:red'>&#x2717;</a></b></td>
+        <td><button class='delete' oid='{{ bucket.pk }}'>&#x2717;</button></td>
 	</tr>
 {% endfor %}
 </table>
+
+<div class='delpop'>Are you sure you want to delete this list?</div>
 
 <br>
 
@@ -30,5 +32,44 @@
 	</tr>
 	</table>
 </form>
+
+<script>
+$('.delpop').dialog({
+    draggable: false,
+    resizable: false,
+    width: 450,
+    modal: true,
+    autoOpen: false,
+    buttons: [
+        {
+            text: "Yes, delete!",
+            click: function () {
+                $.ajax({
+                    url: '/delete_bl/' + $oid + '/', 
+                    method: 'POST',
+                    success: function() {
+                        $('.delete[oid=' + $oid + ']').closest('tr').remove();
+                    },
+                    error: function() {
+                        $(this).dialog('close');
+                    },
+                });
+                $(this).dialog('close');
+            }
+        },
+        { 
+            text: "Nevermind!",
+            click: function() {
+                $(this).dialog('close');
+            }
+        }
+    ]
+})
+
+$('.delete').click(function() {
+    $oid = $(this).attr('oid');
+    $('.delpop').dialog('open');
+});
+</script>
 
 {% endblock %}

@@ -17,3 +17,11 @@ fin {
 a:link, a:visited, a:hover, a:active {
     text-decoration:none;
 }
+
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
+.accordion {
+	width:650px;
+}

@@ -26,12 +26,13 @@
 {% endfor %}
 </table>
 
-<div class='delpop'>Filler</div>
+<div class='delpop'>Are you sure you want to delete this item?</div>
 
 <div class='editform'>Edit Form will go here!</div>
 
-<button class='add'>Ignore For Now</button>
-
+<div class="accordion">
+<h3>Add Item</h3>
+<div>
 <form action="." method="post" id='add-item'>
 	{% csrf_token %}
 	<table class="form-table">
@@ -50,23 +51,29 @@
 	</table>
 	<tr><td><input type="submit" value="Add Item"></td></tr>
 </form>
-
-<div class='addform'>Add Form will go here!</div>
+<br>
+</div>
+</div>
 
 <br><a href='/blist/'>Back</a>
 
 <!-- 
-The other function I want to implement on this page are modal dialogs. 
-The simplest implementation would be a confirm screen before deleting an item. I need to use AJAX to make the actual change to the database. 
-The harder ones would be to create a dialog for adding an item and editing an item. If I can get those to work, I want to refresh just the main section of the page so that the changes are reflected.
+The delete item dialog works. Now I would like to add a dialog to edit the item details in a 
+modal dialog. Doing this would allow me to reduce the amount of different pages that exist in
+this project.
+
+Add form has been converted into a collapsible form that exists on the page.
  -->
 <script>
 $('.delpop').dialog({
+    draggable: false,
+    resizable: false,
+    width: 450,
     modal: true,
     autoOpen: false,
     buttons: [
         {
-            text: "Delete",
+            text: "Yes, delete!",
             click: function () {
                 $.ajax({
                     url: '/delete/' + $oid + '/', 
@@ -82,7 +89,7 @@ $('.delpop').dialog({
             }
         },
         { 
-            text: "Cancel",
+            text: "Nevermind!",
             click: function() {
                 $(this).dialog('close');
             }
@@ -96,6 +103,8 @@ $('.delete').click(function() {
 });
 
 $('.editform').dialog({
+    draggable: false,
+    resizable: false,
     modal: true,
     autoOpen: false,
     buttons: [
@@ -112,21 +121,9 @@ $('.edit').click(function() {
     $('.editform').dialog('open');
 });
 
-$('.addform').dialog({
-    modal: true,
-    autoOpen: false,
-    buttons: [
-        {
-            text: 'Okay',
-            click: function () {
-                $(this).dialog('close')
-            }
-        }
-    ]
-})
-
-$('.add').click(function() {
-    $('.addform').dialog('open');
+$('.accordion').accordion({
+    collapsible: true,
+    active: false
 });
 </script>
 
