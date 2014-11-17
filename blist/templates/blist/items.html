@@ -72,7 +72,7 @@ $('.delpop').dialog({
                     url: '/delete/' + $oid + '/', 
                     method: 'POST',
                     success: function() {
-                        $oid.remove();
+                        $('.delete[oid=' + $oid + ']').closest('tr').remove();
                     },
                     error: function() {
                         $(this).dialog('close');
@@ -92,7 +92,6 @@ $('.delpop').dialog({
 
 $('.delete').click(function() {
     $oid = $(this).attr('oid');
-    alert($oid);
     $('.delpop').dialog('open');
 });
 
