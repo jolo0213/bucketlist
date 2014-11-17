@@ -13,7 +13,7 @@
 
 <table>
 {% for item in bucket.item_set.all %}
-    <tr baseurl="{% url 'blist:items' item.bucket.pk %}" oid='{{ item.pk }}'>
+    <tr>
     	<td>{% if item.finish == NULL %}
     		<b><a href="{% url 'finish' item.pk %}" style='color:green'>&#x2713;</a></b> 
     		<a href="{% url 'blist:details' item.pk %}">{{ item.item_value }}</a> 
@@ -21,10 +21,12 @@
     		<a href="{% url 'blist:details' item.pk %}" style='color:green' title="Completed: {{ item.finish }}">{{ item.item_value }}</a>
     	{% endif %}</td>
     	<td><button class='edit'>EDIT</button></td>
-        <td><button class='delpop'>&#x2717;</button></td>
+        <td><button class='delete' oid='{{ item.pk }}'>&#x2717;</button></td>
     </tr>
 {% endfor %}
 </table>
+
+<div class='delpop'>Filler</div>
 
 <div class='editform'>Edit Form will go here!</div>
 
@@ -59,37 +61,39 @@ The simplest implementation would be a confirm screen before deleting an item. I
 The harder ones would be to create a dialog for adding an item and editing an item. If I can get those to work, I want to refresh just the main section of the page so that the changes are reflected.
  -->
 <script>
-$('.delpop').click(function() {
-    var tr = $(this).parents('tr:first');
-    var dialog = $('div').html('Are you sure you want to delete this item?');
-    dialog.dialog({ 
-        modal: true, 
-        autoOpen: false, 
-        buttons: [
-            {
-                text: "Delete",
-                click: function () {
-                    $.ajax({
-                        url: '/delete/' + tr.attr('oid'),
-                        method: 'POST',
-                        success: function() {
-                            tr.attr('oid').remove();
-                        },
-                        error: function() {
-                            $('#delmsg').html("Error: This item could not be deleted!")
-                        },
-                    });
-                    $(this).dialog('close');
-                }
-            },
-            { 
-                text: "Cancel",
-                click: function() {
-                    $(this).dialog('close');
-                }
+$('.delpop').dialog({
+    modal: true,
+    autoOpen: false,
+    buttons: [
+        {
+            text: "Delete",
+            click: function () {
+                $.ajax({
+                    url: '/delete/' + $oid + '/', 
+                    method: 'POST',
+                    success: function() {
+                        $oid.remove();
+                    },
+                    error: function() {
+                        $(this).dialog('close');
+                    },
+                });
+                $(this).dialog('close');
             }
-        ]
-    }).dialog({ 'open' });
+        },
+        { 
+            text: "Cancel",
+            click: function() {
+                $(this).dialog('close');
+            }
+        }
+    ]
+})
+
+$('.delete').click(function() {
+    $oid = $(this).attr('oid');
+    alert($oid);
+    $('.delpop').dialog('open');
 });
 
 $('.editform').dialog({
