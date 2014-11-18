@@ -9,6 +9,7 @@ Current Features:
  - users can mark favorite lists for easy lookup
  - users can check off which items have been completed
  - users can search for items (not lists)
+ - users can share a link to a list to other people who don't need to be registered
  - jquery ui widgets add cleaner look and delete confirmation
 
 Future Additions:
