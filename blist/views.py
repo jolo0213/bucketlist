@@ -39,7 +39,7 @@ def items(request, bucket_id):
 	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form})
 
 @login_required
-def details(request, item_id):
+def details(request, bucket_id, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
 	return render(request,'blist/details.html', {'item':item,})
 
@@ -54,7 +54,7 @@ def register(request):
 	return render(request, "blist/register.html", {'form': form,})
 
 @login_required
-def delete_item(request, item_id):
+def delete_item(request, bucket_id, item_id):
 	if request.is_ajax():
 		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
 		item.delete()
@@ -70,7 +70,7 @@ def delete_bucket(request, bucket_id):
 	return HttpResponse(status=403)
 
 @login_required
-def edit_details(request, item_id):
+def edit_details(request, bucket_id, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
 	if request.method == 'POST':
 		form = ItemForm(request.POST)
@@ -103,7 +103,7 @@ def mod_favorite(request, bucket_id):
 	return HttpResponseRedirect('/blist/')
 
 @login_required
-def finish(request, item_id):
+def finish(request, bucket_id, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
 	item.finish = datetime.now()
 	item.save()

@@ -8,9 +8,9 @@
 {% for bucket in bucket_list %}
 	<tr>
 		<td>{% if bucket.favorite == False %}
-			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:black'>&#9733;</a></b>
+			<b><a href="{% url 'blist:mod_fav_bl' bucket.pk %}" style='color:black'>&#9733;</a></b>
 		{% else %}
-			<b><a href="{% url 'mod_fav_bl' bucket.pk %}" style='color:gold'>&#9733;</a></b>
+			<b><a href="{% url 'blist:mod_fav_bl' bucket.pk %}" style='color:gold'>&#9733;</a></b>
 		{% endif %}</td>
 		<td><a href="{% url 'blist:items' bucket.id %}">{{ bucket.bl_name }}</a></td>
         <td><button class='delete' oid='{{ bucket.pk }}'>&#x2717;</button></td>
@@ -45,7 +45,7 @@ $('.delpop').dialog({
             text: "Yes, delete!",
             click: function () {
                 $.ajax({
-                    url: '/delete_bl/' + $oid + '/', 
+                    url: '/blist/' + $oid + '/delete_bl/', 
                     method: 'POST',
                     success: function() {
                         $('.delete[oid=' + $oid + ']').closest('tr').remove();

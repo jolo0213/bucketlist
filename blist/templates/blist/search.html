@@ -37,9 +37,9 @@ And then passing it to here in the context as 'source':source. Now to link it he
 		<ul>
 			{% for item in items %}
 			<li>{% if item.finish == NULL %}
-    				<a href="{% url 'blist:details' item.pk %}">{{ item.item_value }}</a> 
+    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}">{{ item.item_value }}</a> 
     			{% else %}
-    				<a href="{% url 'blist:details' item.pk %}" style='color:green'>{{ item.item_value }}</a> 
+    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}" style='color:green'>{{ item.item_value }}</a> 
    		    	{% endif %} - in list <a href="{% url 'blist:items' item.bucket.id %}">{{ item.bucket }}</a></li>
 			{% endfor %}
 		</ul>

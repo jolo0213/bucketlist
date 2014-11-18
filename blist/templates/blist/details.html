@@ -25,7 +25,7 @@
 </tr>
 </table>
 
-<br><a href="{% url 'blist:edit' item.pk %}">Edit</a>
+<br><a href="{% url 'blist:edit' item.bucket.pk item.pk %}">Edit</a>
 <br><a href="{% url 'blist:items' item.bucket.id %}">Back</a>
 
 {% endblock %}

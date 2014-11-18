@@ -45,6 +45,6 @@
 	<tr><td><input type="submit" value="Change Item" /></td></tr>
 </form>
 
-<br><a href="{% url 'blist:details' item.pk %}">Back</a>
+<br><a href="{% url 'blist:details' item.bucket.pk item.pk %}">Back</a>
 
 {% endblock %}

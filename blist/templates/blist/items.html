@@ -15,13 +15,13 @@
 {% for item in bucket.item_set.all %}
     <tr>
     	<td>{% if item.finish == NULL %}
-    		<b><a href="{% url 'finish' item.pk %}" style='color:green'>&#x2713;</a></b> 
-    		<a href="{% url 'blist:details' item.pk %}">{{ item.item_value }}</a> 
+    		<b><a href="{% url 'blist:finish' bucket.pk item.pk %}" style='color:green'>&#x2713;</a></b> 
+    		<a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a> 
     	{% else %}
-    		<a href="{% url 'blist:details' item.pk %}" style='color:green' title="Completed: {{ item.finish }}">{{ item.item_value }}</a>
+    		<a href="{% url 'blist:details' bucket.pk item.pk %}" style='color:green' title="Completed: {{ item.finish }}">{{ item.item_value }}</a>
     	{% endif %}</td>
     	<td><button class='edit'>EDIT</button></td>
-        <td><button class='delete' oid='{{ item.pk }}'>&#x2717;</button></td>
+        <td><button class='delete' oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'>&#x2717;</button></td>
     </tr>
 {% endfor %}
 </table>
@@ -76,7 +76,7 @@ $('.delpop').dialog({
             text: "Yes, delete!",
             click: function () {
                 $.ajax({
-                    url: '/delete/' + $oid + '/', 
+                    url: '/blist/' + $bid + '/' + $oid + '/delete/', 
                     method: 'POST',
                     success: function() {
                         $('.delete[oid=' + $oid + ']').closest('tr').remove();
@@ -99,6 +99,7 @@ $('.delpop').dialog({
 
 $('.delete').click(function() {
     $oid = $(this).attr('oid');
+    $bid = $(this).attr('bid');
     $('.delpop').dialog('open');
 });
 
