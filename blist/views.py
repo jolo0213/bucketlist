@@ -130,4 +130,4 @@ def search(request):
 		else:
 			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
 			return render(request, 'blist/search.html', {'items':item,'query':q,'source':ivals})
-	return render(request, 'blist/search.html', {'error':error, 'source':ivals, 'sought':sought,})
+	return render(request, 'blist/search.html', {'error':error, 'source':ivals})
