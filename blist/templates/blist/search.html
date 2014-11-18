@@ -13,9 +13,11 @@ And then passing it to here in the context as 'source':source. Now to link it he
 but the value seems to take a the array of single pair dictionaries including the brackets.
 -->
 <script>
-	$("#autocomplete").autocomplete({
-		source: {{ source }}
-	});
+var ivals = {{ source|safe }}
+
+$("#autocomplete").autocomplete({
+	source: ivals
+});
 </script>
 {% endblock %}
 {% block content %}

@@ -1,3 +1,5 @@
+import json
+
 from datetime import datetime
 
 from django.shortcuts import render, get_object_or_404
@@ -112,6 +114,10 @@ def finish(request, bucket_id, item_id):
 @login_required
 def search(request):
 	source = Item.objects.filter(bucket__owner=request.user).values('item_value')
+	ivals = []
+	for item in source:
+		ivals.append(item['item_value'])
+	ivals = json.dumps(ivals)
 	error = False
 	if 'q' in request.GET:
 		q = request.GET['q']
@@ -120,4 +126,4 @@ def search(request):
 		else:
 			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
 			return render(request, 'blist/search.html', {'items':item,'query':q})
-	return render(request, 'blist/search.html', {'error':error, 'source':source})
+	return render(request, 'blist/search.html', {'error':error, 'source':ivals})
