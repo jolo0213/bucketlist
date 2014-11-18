@@ -111,7 +111,7 @@ def finish(request, bucket_id, item_id):
 
 @login_required
 def search(request):
-	source = Item.objects.filter(bucket__owner=request.user)
+	source = Item.objects.filter(bucket__owner=request.user).values('item_value')
 	error = False
 	if 'q' in request.GET:
 		q = request.GET['q']

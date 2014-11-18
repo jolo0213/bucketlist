@@ -4,12 +4,13 @@
 
 {% block head %}
 <!--
-On this page I want to add an autocomplete feature just to test it out. I want to be able to set the source to be all items whose bucket.owner matches the current user.
-
+On this page I want to add an autocomplete feature just to test it out. I want to be able to set the 
+source to be all items whose bucket.owner matches the current user.
 I believe I can pass that through the view context using something like:
 source = Item.objects.filter(bucket__owner=request.user)
 
-And then passing it to here in the context as 'source':source. Now to link it here, does {{ source }} work in the Javascript?
+And then passing it to here in the context as 'source':source. Now to link it here: {{ source }} 
+but the value seems to take a the array of single pair dictionaries including the brackets.
 -->
 <script>
 	$("#autocomplete").autocomplete({
