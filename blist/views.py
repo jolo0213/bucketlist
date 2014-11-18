@@ -40,6 +40,10 @@ def items(request, bucket_id):
 		add_form = ItemForm()
 	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form})
 
+def share(request, bucket_id):
+	bucket = get_object_or_404(BL,pk=bucket_id)
+	return render(request,'blist/share.html', {'bucket':bucket,})
+
 @login_required
 def details(request, bucket_id, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
@@ -125,5 +129,5 @@ def search(request):
 			error = True
 		else:
 			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
-			return render(request, 'blist/search.html', {'items':item,'query':q})
-	return render(request, 'blist/search.html', {'error':error, 'source':ivals})
+			return render(request, 'blist/search.html', {'items':item,'query':q,'source':ivals})
+	return render(request, 'blist/search.html', {'error':error, 'source':ivals, 'sought':sought,})

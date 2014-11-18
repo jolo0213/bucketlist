@@ -53,6 +53,10 @@
 </form>
 <br>
 </div>
+<h3>Share List</h3>
+
+<div class='share'></div>
+
 </div>
 
 <br><a href='/blist/'>Back</a>
@@ -124,7 +128,14 @@ $('.edit').click(function() {
 
 $('.accordion').accordion({
     collapsible: true,
-    active: false
+    active: false,
+    heightStyle: 'content'
+});
+
+var share = window.location.href;
+
+$(document).ready(function(){
+    $('.share').append(share + 'share/');
 });
 </script>
 
