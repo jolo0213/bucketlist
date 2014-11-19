@@ -3,42 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <title>Bucket List{% block title %}{% endblock %}</title>
+
     <script type="text/javascript" src="/media/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/media/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/media/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/media/js/bl.js"></script>
-    <link rel="stylesheet" type="text/css" href="/media/css/style.css"/>
+
     <link rel="stylesheet" type="text/css" href="/media/css/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="/media/css/jquery-ui.structure.min.css">
     <link rel="stylesheet" type="text/css" href="/media/css/jquery-ui.theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/media/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/media/css/bootstrap.theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/media/css/style.css"/>
+
     {% block head %}{% endblock %}
 </head>
 
 <body>
-    <div id="nav">
-        {% block sidebar %}
-        {% if user.is_authenticated %}
-        <p>Welcome {{ user.username }}!</p>
-        <ul>
-            <li><a href="/blist/favorites/">Favorites</a></li>
-            <li><a href="/blist/">My Lists</a></li>
-            <li><a href="/search/">Search</a></li>
-            <li><a href="/logout/">Logout</a></li>
-        </ul>
-        {% else %}
-        <p>Please login or register!</p>
-        <ul>
-            <li><a href="/login/">Login</a></li>
-            <li><a href="/register/">Register</a></li>
-        </ul>
-        {% endif%}
-        {% endblock %}
-    </div>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-2'>
+                {% block sidebar %}
+                {% if user.is_authenticated %}
+                <p>Welcome {{ user.username }}!</p>
+                <ul>
+                    <li><a href="/blist/favorites/">Favorites</a></li>
+                    <li><a href="/blist/">My Lists</a></li>
+                    <li><a href="/search/">Search</a></li>
+                    <li><a href="/logout/">Logout</a></li>
+                </ul>
+                {% else %}
+                <p>Please login or register!</p>
+                <ul>
+                    <li><a href="/login/">Login</a></li>
+                    <li><a href="/register/">Register</a></li>
+                </ul>
+                {% endif%}
+                {% endblock %}
+            </div>
 
-    <div id="main">
-        {% block content %}{% endblock %}
+            <div class='col-md-10'>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
     </div>
-
 </body>
 
 </html>
