@@ -41,13 +41,13 @@
 <div class='panel panel-default'>
     <div class='panel-heading'>Add List</div>
     <div class='panel-body'>
-        <form action="." method="post" class='form-horizontal' role="form">
+        <form action="/blist/ajax_add/" method="post" class='form-horizontal' role="form" id='AddForm'>
         	{% csrf_token %}
         	<table class="form-table">
         	<tr>
             	<td>List Name: </td>
-            	<td>{{ form.bl_name }}</td>
-            	<td><button type="button submit" class="btn-xs btn-primary">Add</button></td>
+            	<td><input type='text' name='List Name' id='ListName'></td>
+            	<td><input type='submit' class='btn-xs btn-primary' value='Add'></td>
         	</tr>
         	</table>
         </form>
@@ -74,6 +74,8 @@
     </div>
 </div>
 
+<!-- Additional Javascript -->
+
 <script>
 $('.confirm').click(function() {
     $.ajax({
@@ -88,6 +90,19 @@ $('.confirm').click(function() {
 $('.delete').click(function() {
     $oid = $(this).attr('oid');
 });
+
+var addform = $('#AddForm');
+addform.submit(function() {
+    $.ajax({
+        type: addform.attr('method'),
+        url: addform.attr('action'),
+        data: addform.serialize(),
+        success: function(data) {
+
+        },
+    })
+})
+
 </script>
 
 {% endblock %}

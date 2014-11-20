@@ -94,6 +94,29 @@ def edit_details(request, bucket_id, item_id):
 	return render(request,'blist/edit.html', {'item':item,'form':form})
 	
 @login_required
+def qedit(request, bucket_id, item_id):
+	if request.is_ajax():
+		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+		if request.method == 'POST':
+			form = ItemForm(request.POST)
+			if form.is_valid():
+				qedit_item = Item.objects.get(pk=item_id)
+				form = ItemForm(request.POST,instance=qedit_item)
+				form.save()
+				return HttpResponse(status=200)
+	return HttpResponse(status=403)
+
+@login_required
+def ajax_add(request):
+	if request.is_ajax():
+		listname = request.POST['ListName']
+		owner = request.user
+		new_bl = BL(owner=owner,bl_name=listname)
+		new_bl.save()
+		return HttpResponse(status=200)
+	return HttpResponse(status=403)
+
+@login_required
 def favorites(request):
 	bucket_list = BL.objects.filter(owner=request.user,favorite=True)
 	return render(request,'blist/favorites.html', {'bucket_list':bucket_list,})
