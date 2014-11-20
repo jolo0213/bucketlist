@@ -50,8 +50,6 @@ $.ajaxSetup({
 
 /* JQuery UI function sections */
 
-$(".sortable").sortable({ axis: 'y' });
-
-$(function() {
-	$( document ).tooltip();
-});
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

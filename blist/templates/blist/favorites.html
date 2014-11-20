@@ -16,7 +16,7 @@
 		    	<li class='list-group-item'>{% if item.finish == NULL %} 
 		    			{{ item.item_value }}
 		    		{% else %}
-		    			<fin title="Completed: {{ item.finish }}">{{ item.item_value }}</fin>
+		    			<fin title="Completed: {{ item.finish }}" data-placement="right" data-toggle="tooltip">{{ item.item_value }}</fin>
 		    		{% endif %}</li>
 			{% endfor %}
 			</ul>

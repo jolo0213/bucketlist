@@ -30,7 +30,10 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bucket List</a>
+                    <a class="navbar-brand" href="/blist/">Bucket List</a>
+                </div>
+                <div class="navbar-text">
+                    Hello {{ user.username }}!
                 </div>
                 <div>
                     <ul class='nav navbar-nav'>
@@ -40,7 +43,6 @@
                         <li><a href="/search/"><span class="glyphicon glyphicon-search"></span> Search</a></li>
                         {% endif %}
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                         <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
