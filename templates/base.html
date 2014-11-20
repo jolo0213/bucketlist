@@ -27,30 +27,40 @@
 
 <body>
     <div class='container'>
-        <div class='row'>
-            <div class='col-md-2'>
-                {% block sidebar %}
-                {% if user.is_authenticated %}
-                <p>Welcome {{ user.username }}!</p>
-                <ul>
-                    <li><a href="/blist/favorites/">Favorites</a></li>
-                    <li><a href="/blist/">My Lists</a></li>
-                    <li><a href="/search/">Search</a></li>
-                    <li><a href="/logout/">Logout</a></li>
-                </ul>
-                {% else %}
-                <p>Please login or register!</p>
-                <ul>
-                    <li><a href="/login/">Login</a></li>
-                    <li><a href="/register/">Register</a></li>
-                </ul>
-                {% endif%}
-                {% endblock %}
-            </div>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Bucket List</a>
+                </div>
+                <div>
+                    <ul class='nav navbar-nav'>
+                        {% if user.is_authenticated %}
+                        <li><a href="/blist/favorites/"><span class="glyphicon glyphicon-star"></span> Favorites</a></li>
+                        <li><a href="/blist/"><span class="glyphicon glyphicon-list"></span> My Lists</a></li>
+                        <li><a href="/search/"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+                        {% endif %}
+                    </ul>
 
-            <div class='col-md-10'>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                        <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        {% else %}
+                        <li><a href="/register/"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                        <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class='row'>
+            <div class='col-md-2'></div>
+
+            <div class='col-md-8'>
                 {% block content %}{% endblock %}
             </div>
+
+            <div class='col-md-2'></div>
         </div>
     </div>
 </body>
