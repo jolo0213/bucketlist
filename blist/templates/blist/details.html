@@ -26,6 +26,10 @@
 </table>
 
 <br><a href="{% url 'blist:edit' item.bucket.pk item.pk %}">Edit</a>
-<br><a href="{% url 'blist:items' item.bucket.id %}">Back</a>
+<br><a href="{% url 'blist:items' item.bucket.id %}">
+	<button type="button" class="btn btn-primary">
+    	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+	</button>
+</a>
 
 {% endblock %}
