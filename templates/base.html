@@ -32,9 +32,11 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/blist/">Bucket List</a>
                 </div>
+                {% if user.is_authenticated %}
                 <div class="navbar-text">
                     Hello {{ user.username }}!
                 </div>
+                {% endif %}
                 <div>
                     <ul class='nav navbar-nav'>
                         {% if user.is_authenticated %}
@@ -56,13 +58,19 @@
         </nav>
 
         <div class='row'>
+            {% if user.is_authenticated %}
             <div class='col-md-2'></div>
-
             <div class='col-md-8'>
                 {% block content %}{% endblock %}
             </div>
-
             <div class='col-md-2'></div>
+            {% else %}
+            <div class='col-md-4'></div>
+            <div class='col-md-4'>
+                {% block login %}{% endblock %}
+            </div>
+            <div class='col-md-4'></div>
+            {% endif %}
         </div>
     </div>
 </body>

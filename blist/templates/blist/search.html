@@ -13,10 +13,16 @@
     <input type="text" name="q" id='autocomplete'>
     <input type="submit" value="Find">
 </form>
+<br>
+{% if error %}
+<div class="alert alert-danger" role="alert">
+	<p>Please enter a search term.</p>
+</div>
+{% endif %}
 
-{% if error %}<p style="color: red">Please enter a value.</p>{% endif %}
-
-<p>Search results for {{ query }}.</p>
+{% if query != NULL %}
+	<p>Search results for {{ query }}.</p>
+{% endif %}
 
 {% if items %}
 	<p>Found {{ items|length }} item{{ items|pluralize }}.</p>
@@ -30,7 +36,9 @@
 			{% endfor %}
 		</ul>
 {% else %}
-	<p>No items matched your search criteria.</p>
+	<div class="alert alert-danger" role="alert">
+		<p>No items matched your search criteria.</p>
+	</div>
 {% endif %}
 
 <script>
