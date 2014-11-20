@@ -24,7 +24,7 @@ def index(request):
 			return HttpResponseRedirect(reverse('blist:items', args=[bucket_list.pk]))
 	else:
 		add_list_form = BLForm()
-	return render(request,'blist/index.html', {'bucket_list':bucket_list,'form':add_list_form})
+	return render(request,'blist/index.html', {'bucket_list':bucket_list,'form':add_list_form,})
 
 @login_required
 def items(request, bucket_id):

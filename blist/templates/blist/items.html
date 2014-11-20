@@ -11,55 +11,76 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<table>
-{% for item in bucket.item_set.all %}
-    <tr>
-    	<td>{% if item.finish == NULL %}
-    		<b><a href="{% url 'blist:finish' bucket.pk item.pk %}" style='color:green'>&#x2713;</a></b> 
-    		<a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a> 
-    	{% else %}
-    		<a href="{% url 'blist:details' bucket.pk item.pk %}" style='color:green' title="Completed: {{ item.finish }}">{{ item.item_value }}</a>
-    	{% endif %}</td>
-    	<td><button class='edit'>EDIT</button></td>
-        <td><button class='delete' oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'>&#x2717;</button></td>
-    </tr>
-{% endfor %}
-</table>
+<div class="panel panel-default">
+    <div class="panel-heading"><b>{{ bucket.bl_name }}</b></div>
+
+    <div class='panel-body'>
+        <ul class='list-group'>
+            {% for item in bucket.item_set.all %}
+                <li class='list-group-item'>
+                    {% if item.finish == NULL %}
+                        <b><a href="{% url 'blist:finish' bucket.pk item.pk %}" style='color:green'>
+                            <span class="label label-success"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></span>
+                        </a></b> 
+                        <a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a> 
+                    {% else %}
+                        <a href="{% url 'blist:details' bucket.pk item.pk %}" style='color:green' title="Completed: {{ item.finish }}">{{ item.item_value }}</a>
+                    {% endif %}
+                    <button type="button" class="btn-xs btn-danger delete pull-right" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button> 
+                    <button type="button" class="btn-xs btn-warning edit pull-right">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button> 
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="panel-group" role="tablist" aria-multiselectable="true">
+    <div class='panel panel-default'>
+        <div class='panel-heading'>
+            <a data-toggle="collapse" href="#collapse-add" aria-expanded="true" aria-controls="collapse-add"><b>Add Item</b></a>
+        </div>
+
+        <div id="collapse-add" class="panel-collapse collapse" role="tabpanel">
+            <div class='panel-body'>
+                <form action="." method="post" id='add-item'>
+                    {% csrf_token %}
+                    <table class="form-table">
+                    <tr>
+                        <td>Item Name: </td>
+                        <td>{{ form.item_value }}</td>
+                    </tr>
+                    <tr>
+                        <td>URL (optional): </td>
+                        <td>{{ form.item_url }}</td>
+                    </tr>
+                    <tr>
+                        <td>Description (optional): </td>
+                        <td>{{ form.item_desc }}</td>
+                    </tr>
+                    </table>
+                    <tr><td><input type="submit" value="Add Item"></td></tr>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><b>Share This List</b></div>
+    <div class="panel-body">
+        <div class='well well-sm share'></div>
+    </div>
+</div>
 
 <div class='delpop'>Are you sure you want to delete this item?</div>
 
 <div class='editform'>Edit Form will go here!</div>
 
-<div class="accordion">
-<h3>Add Item</h3>
-<div>
-<form action="." method="post" id='add-item'>
-	{% csrf_token %}
-	<table class="form-table">
-	<tr>
-    	<td>Item Name: </td>
-    	<td>{{ form.item_value }}</td>
-	</tr>
-	<tr>
-    	<td>URL (optional): </td>
-    	<td>{{ form.item_url }}</td>
-	</tr>
-	<tr>
-    	<td>Description (optional): </td>
-    	<td>{{ form.item_desc }}</td>
-	</tr>
-	</table>
-	<tr><td><input type="submit" value="Add Item"></td></tr>
-</form>
-<br>
-</div>
-<h3>Share List</h3>
-
-<div class='share'></div>
-
-</div>
-
-<br><a href='/blist/'>Back</a>
+<a href='/blist/'>Back</a>
 
 <!-- 
 The delete item dialog works. Now I would like to add a dialog to edit the item details in a 
@@ -83,7 +104,7 @@ $('.delpop').dialog({
                     url: '/blist/' + $bid + '/' + $oid + '/delete/', 
                     method: 'POST',
                     success: function() {
-                        $('.delete[oid=' + $oid + ']').closest('tr').remove();
+                        $('.delete[oid=' + $oid + ']').closest('li').remove();
                     },
                     error: function() {
                         $(this).dialog('close');
@@ -124,12 +145,6 @@ $('.editform').dialog({
 
 $('.edit').click(function() {
     $('.editform').dialog('open');
-});
-
-$('.accordion').accordion({
-    collapsible: true,
-    active: false,
-    heightStyle: 'content'
 });
 
 var share = window.location.href;
