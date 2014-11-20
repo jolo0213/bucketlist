@@ -10,42 +10,38 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<p><b>Current Entry</b></p>
-<table>
-<tr>
-	<td>Item Name: </td>
-	<td>{{ item.item_value }}</td>
-</tr>
-<tr>
-	<td>URL: </td>
-	<td>{{ item.item_url }}</td>
-</tr>
-<tr>
-	<td>Description: </td>
-	<td>{{ item.item_desc }}</td>
-</tr>
-</table>
+<div class='panel panel-default'>
+	<div class='panel-heading'>Current Entry</div>
+	<ul class='list-group'>
+		<li class='list-group-item'><b>Item Name:</b> {{ item.item_value }}</li>
+		<li class='list-group-item'><b>URL: </b>{{ item.item_url }}</li>
+		<li class='list-group-item'><b>Description: </b><br>{{ item.item_desc }}</li>
+	</ul>
+</div>
 
-<p><b>Update Entry</b></p>
-
-<form action="." method="post" id='edit-item-form'>
-	{% csrf_token %}
-	<table class="form-table">
-	<tr>
-    	<td>Item Name: </td>
-    	<td>{{ form.item_value }}</td>
-	</tr>
-	<tr>
-    	<td>URL (optional): </td>
-    	<td>{{ form.item_url }}</td>
-	</tr>
-	<tr>
-    	<td>Description (optional): </td>
-    	<td>{{ form.item_desc }}</td>
-	</tr>
-	</table>
-	<tr><td><input type="submit" value="Change Item" /></td></tr>
-</form>
+<div class='panel panel-default'>
+	<div class='panel-heading'>Update Entry</div>
+	<div class='panel-body'>
+		<form action="." method="post" id='edit-item-form'>
+		{% csrf_token %}
+			<table class="form-table">
+				<tr>
+			    	<td>Item Name: </td>
+			    	<td>{{ form.item_value }}</td>
+				</tr>
+				<tr>
+			    	<td>URL (optional): </td>
+			    	<td>{{ form.item_url }}</td>
+				</tr>
+				<tr>
+			    	<td>Description (optional): </td>
+			    	<td>{{ form.item_desc }}</td>
+				</tr>
+			</table>
+			<button type="button submit" class="btn-xs btn-primary">Change Item</button>
+		</form>
+	</div>
+</div>
 
 <a href="{% url 'blist:details' item.bucket.pk item.pk %}">
 	<button type="button" class="btn btn-primary">

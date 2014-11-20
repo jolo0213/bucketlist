@@ -84,11 +84,11 @@ def edit_details(request, bucket_id, item_id):
 			edit_item = Item.objects.get(pk=item_id)
 			form = ItemForm(request.POST,instance=edit_item)
 			form.save()
-			return HttpResponseRedirect(reverse('blist:details', args=[edit_item.pk]))
+			return HttpResponseRedirect(reverse('blist:details', args=[bucket_id, edit_item.pk]))
 		else:
 			edit_item = Item.objects.get(pk=item_id)
 			form = ItemForm(instance=edit_item)
-			return HttpResponseRedirect(reverse('blist:details', args=[edit_item.pk]))
+			return HttpResponseRedirect(reverse('blist:details', args=[bucket_id, edit_item.pk]))
 	else:
 		form = ItemForm()
 	return render(request,'blist/edit.html', {'item':item,'form':form})

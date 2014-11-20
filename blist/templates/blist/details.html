@@ -8,27 +8,25 @@
     <div class="panel-heading"><h4>{{ item.bucket }} | {{ item.item_value }}</h4></div>
 </div>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<div class='panel panel-default'>
+	<div class='panel-heading'>{{ item.item_value }}</div>
+	<ul class='list-group'>
+		{% if item.finish != NULL %} 
+		<li class='list-group-item'><b>Completed:</b> {{ item.finish }}</li>
+		{% endif %}
+		<li class='list-group-item'><b>URL: </b>{{ item.item_url }}</li>
+		<li class='list-group-item'><b>Description: </b><br>{{ item.item_desc }}</li>
+	</ul>
+	<div class='panel-body'>
+		<a href="{% url 'blist:edit' item.bucket.pk item.pk %}">
+			<button type="button" class="btn btn-warning">
+		    	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+			</button>
+		</a>
+	</div>
+</div>
 
-<table>
-{% if item.finish != NULL %} 
-<tr>
-	<td>Completed: </td>
-	<td>{{ item.finish }}</td>
-</tr>
-{% endif %}
-<tr>
-	<td>URL: </td>
-	<td>{{ item.item_url }}</td>
-</tr>
-<tr>
-	<td>Description: </td>
-	<td>{{ item.item_desc }}</td>
-</tr>
-</table>
-
-<br><a href="{% url 'blist:edit' item.bucket.pk item.pk %}">Edit</a>
-<br><a href="{% url 'blist:items' item.bucket.id %}">
+<a href="{% url 'blist:items' item.bucket.id %}">
 	<button type="button" class="btn btn-primary">
     	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
 	</button>
