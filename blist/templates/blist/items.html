@@ -7,7 +7,9 @@
 
 {% block content %}
 
-<h1>{{ bucket.bl_name }}</h1>
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>{{ bucket.bl_name }}</h4></div>
+</div>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
@@ -66,7 +68,7 @@
                         <td>{{ form.item_desc }}</td>
                     </tr>
                     </table>
-                    <tr><td><input type="submit" value="Add Item"></td></tr>
+                    <tr><td><button type="button submit" class="btn-xs btn-primary">Add Item</button></td></tr>
                 </form>
             </div>
         </div>

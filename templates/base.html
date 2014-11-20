@@ -65,11 +65,7 @@
             </div>
             <div class='col-md-2'></div>
             {% else %}
-            <div class='col-md-4'></div>
-            <div class='col-md-4'>
-                {% block login %}{% endblock %}
-            </div>
-            <div class='col-md-4'></div>
+                {% block anon %}{% endblock %}
             {% endif %}
         </div>
     </div>

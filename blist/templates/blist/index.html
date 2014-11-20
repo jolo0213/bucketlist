@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<h1>My Lists</h1>
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>My Lists</h4></div>
+</div>
 
 <div class="panel-group" role="tablist" aria-multiselectable="true">
     {% for bucket in bucket_list %}
@@ -36,18 +38,21 @@
     {% endfor %}
 </div>
 
-<br>
-
-<form action="." method="post" class='form-horizontal' role="form">
-	{% csrf_token %}
-	<table class="form-table">
-	<tr>
-    	<td>List Name</td>
-    	<td>{{ form.bl_name }}</td>
-    	<td><input type="submit" value="Add"></td>
-	</tr>
-	</table>
-</form>
+<div class='panel panel-default'>
+    <div class='panel-heading'>Add List</div>
+    <div class='panel-body'>
+        <form action="." method="post" class='form-horizontal' role="form">
+        	{% csrf_token %}
+        	<table class="form-table">
+        	<tr>
+            	<td>List Name: </td>
+            	<td>{{ form.bl_name }}</td>
+            	<td><button type="button submit" class="btn-xs btn-primary">Add</button></td>
+        	</tr>
+        	</table>
+        </form>
+    </div>
+</div>
 
 <!-- Modal dialogs -->
 

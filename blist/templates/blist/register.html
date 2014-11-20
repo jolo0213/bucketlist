@@ -2,14 +2,42 @@
 
 {% block title %} | Register{% endblock %}
 
-{% block login %}
+{% block anon %}
 
-<h1>Create Account</h1>
+<div class='col-md-3'></div>
 
-<form action="" method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Create Account">
-</form>
+<div class='col-md-6'>
+	<div class="panel panel-default">
+	    <div class="panel-heading"><h4>Create Account</h4></div>
+	</div>
+
+
+	<div class="panel panel-default">
+	    <div class="panel-body">
+	    	<form action="" method="post" class="form-horizontal" role='form'>
+				{% csrf_token %}
+				<table class="form-table">
+					<tr>
+	    				<td>{{ form.username.label_tag }}</td>
+	    				<td>{{ form.username }}</td>
+					</tr>
+					<tr>
+	    				<td>{{ form.password1.label_tag }}</td>
+	    				<td>{{ form.password1 }}</td>
+					</tr>
+					<tr>
+	    				<td>{{ form.password2.label_tag }}</td>
+	    				<td>{{ form.password2 }}</td>
+					</tr>
+				</table>
+				<button type="button submit" class="btn btn-primary">
+					Create Account
+				</button>
+			</form>
+	    </div>
+	</div>
+</div>
+
+<div class='col-md-3'></div>
 
 {% endblock %}

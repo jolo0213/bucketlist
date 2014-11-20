@@ -4,7 +4,9 @@
 
 {% block content %}
 
-<h1>{{ item.bucket }} | Edit {{ item.item_value }}</h1>
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>{{ item.bucket }} | Edit {{ item.item_value }}</h4></div>
+</div>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 

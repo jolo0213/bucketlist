@@ -4,42 +4,53 @@
 
 {% block head %}
 {% endblock %}
+
 {% block content %}
 
-<h1>Search</h1>
-
-<form action="" method="get">
-    <label for='autocomplete'>Search for: </label>
-    <input type="text" name="q" id='autocomplete'>
-    <input type="submit" value="Find">
-</form>
-<br>
-{% if error %}
-<div class="alert alert-danger" role="alert">
-	<p>Please enter a search term.</p>
+<div class="panel panel-default">
+	<div class="panel-heading"><h4>Search</h4></div>
 </div>
-{% endif %}
 
-{% if query != NULL %}
-	<p>Search results for {{ query }}.</p>
-{% endif %}
+<div class="panel panel-default">
+	<div class='panel-body'>
+		<form action="" method="get">
+		    <label for='autocomplete'>Search for: </label>
+		    <input type="text" name="q" id='autocomplete'>
+		    <button type="button submit" class="btn-xs btn-primary">
+				Find
+			</button>
+		</form>
+		<br>
+		{% if error %}
+		<div class="alert alert-danger" role="alert">
+			<p>Please enter a search term.</p>
+		</div>
+		{% endif %}
 
-{% if items %}
-	<p>Found {{ items|length }} item{{ items|pluralize }}.</p>
-		<ul>
-			{% for item in items %}
-			<li>{% if item.finish == NULL %}
-    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}">{{ item.item_value }}</a> 
-    			{% else %}
-    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}" style='color:green'>{{ item.item_value }}</a> 
-   		    	{% endif %} - in list <a href="{% url 'blist:items' item.bucket.id %}">{{ item.bucket }}</a></li>
-			{% endfor %}
-		</ul>
-{% else %}
-	<div class="alert alert-danger" role="alert">
-		<p>No items matched your search criteria.</p>
+		{% if query != NULL %}
+			<p>Search results for {{ query }}.</p>
+		{% endif %}
+
+		{% if items %}
+			<div class="alert alert-success" role="success">
+				<p>Found {{ items|length }} item{{ items|pluralize }}.</p>
+			</div>
+				<ul class='list-group'>
+					{% for item in items %}
+					<li class='list-group-item'>{% if item.finish == NULL %}
+		    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}">{{ item.item_value }}</a> 
+		    			{% else %}
+		    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}" style='color:green'>{{ item.item_value }}</a> 
+		   		    	{% endif %} - in list <a href="{% url 'blist:items' item.bucket.id %}">{{ item.bucket }}</a></li>
+					{% endfor %}
+				</ul>
+		{% else %}
+			<div class="alert alert-danger" role="alert">
+				<p>No items matched your search criteria.</p>
+			</div>
+		{% endif %}	
 	</div>
-{% endif %}
+</div>
 
 <script>
 var ivals = {{ source|safe }};
