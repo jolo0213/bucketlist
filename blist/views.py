@@ -5,8 +5,9 @@ from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
+from django.template.loader import render_to_string
 
 from blist.models import BL, Item
 from blist.forms import ItemForm, BLForm
@@ -16,12 +17,17 @@ from blist.forms import ItemForm, BLForm
 def index(request):
 	bucket_list = BL.objects.filter(owner=request.user)
 	if request.method == 'POST':
-		add_list_form = BLForm(request.POST)
-		if add_list_form.is_valid():
-			bucket_list = add_list_form.save(commit=False)
-			bucket_list.owner = request.user
-			bucket_list.save()
-			return HttpResponseRedirect(reverse('blist:items', args=[bucket_list.pk]))
+		if request.is_ajax():
+			add_list_form = BLForm(request.POST)
+			if add_list_form.is_valid():
+				bucket_list = add_list_form.save(commit=False)
+				bucket_list.owner = request.user
+				bucket_list.save()
+				return HttpResponse(render_to_string('blist/lists.html', {'bucket':bucket_list}))
+			else:
+				return HttpResponse(status=400)
+		else:
+			return HttpResponse(status=403)
 	else:
 		add_list_form = BLForm()
 	return render(request,'blist/index.html', {'bucket_list':bucket_list,'form':add_list_form,})
@@ -104,16 +110,6 @@ def qedit(request, bucket_id, item_id):
 				form = ItemForm(request.POST,instance=qedit_item)
 				form.save()
 				return HttpResponse(status=200)
-	return HttpResponse(status=403)
-
-@login_required
-def ajax_add(request):
-	if request.is_ajax():
-		listname = request.POST['ListName']
-		owner = request.user
-		new_bl = BL(owner=owner,bl_name=listname)
-		new_bl.save()
-		return HttpResponse(status=200)
 	return HttpResponse(status=403)
 
 @login_required

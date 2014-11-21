@@ -6,47 +6,23 @@
     <div class="panel-heading"><h4>My Lists</h4></div>
 </div>
 
-<div class="panel-group" role="tablist" aria-multiselectable="true">
+<div class="panel-group" role="tablist" aria-multiselectable="true" id="ListGroup">
     {% for bucket in bucket_list %}
-    <div class='panel panel-default'>
-        <div class='panel-heading'>
-            {% if bucket.favorite == False %}
-                <b><a href="{% url 'blist:mod_fav_bl' bucket.pk %}" style='color:black'>&#9733;</a></b>
-            {% else %}
-                <b><a href="{% url 'blist:mod_fav_bl' bucket.pk %}" style='color:gold'>&#9733;</a></b>
-            {% endif %} 
-            <a href="{% url 'blist:items' bucket.id %}"><b>{{ bucket.bl_name }}</b></a>
-            <button type="button" class="btn-xs btn-danger delete pull-right" data-toggle="modal" data-target="#delete" oid='{{ bucket.pk }}'>
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button> 
-            <button type="button" class="btn-xs btn-success pull-right" data-toggle="collapse" href="#{{ bucket.pk }}" aria-controls="{{ bucket.pk }}">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </button>
-        </div>
-        <div id="{{ bucket.pk }}" class="panel-collapse collapse" role="tabpanel">
-            <ul class='list-group'>
-            {% for item in bucket.item_set.all %}
-                <li class='list-group-item'>{% if item.finish == NULL %} 
-                        {{ item.item_value }}
-                    {% else %}
-                        <fin title="Completed: {{ item.finish }}" data-placement="right" data-toggle="tooltip">{{ item.item_value }}</fin>
-                    {% endif %}</li>
-            {% endfor %}
-            </ul>
-        </div>
-    </div>
+        {% include "blist/lists.html" %}
     {% endfor %}
 </div>
+
+<!-- Add Form -->
 
 <div class='panel panel-default'>
     <div class='panel-heading'>Add List</div>
     <div class='panel-body'>
-        <form action="/blist/ajax_add/" method="post" class='form-horizontal' role="form" id='AddForm'>
+        <form action="." method="post" id='AddForm'>
         	{% csrf_token %}
         	<table class="form-table">
         	<tr>
             	<td>List Name: </td>
-            	<td><input type='text' name='List Name' id='ListName'></td>
+            	<td>{{ form.bl_name }}</td>
             	<td><input type='submit' class='btn-xs btn-primary' value='Add'></td>
         	</tr>
         	</table>
@@ -77,6 +53,24 @@
 <!-- Additional Javascript -->
 
 <script>
+$(document).ready(function() {
+    $('#AddForm').submit(function() {
+        $.ajax({
+            type: $('#AddForm').attr('method'),
+            url: $('#AddForm').attr('action'),
+            data: $('#AddForm').serialize(),
+            success: function(data) {
+                $('#AddForm')[0].reset();
+                $('#ListGroup').append(data);
+            },
+            error: function() {
+                
+            },
+        });
+        return false;
+    });
+});
+
 $('.confirm').click(function() {
     $.ajax({
         url: '/blist/' + $oid + '/delete_bl/', 
@@ -90,19 +84,6 @@ $('.confirm').click(function() {
 $('.delete').click(function() {
     $oid = $(this).attr('oid');
 });
-
-var addform = $('#AddForm');
-addform.submit(function() {
-    $.ajax({
-        type: addform.attr('method'),
-        url: addform.attr('action'),
-        data: addform.serialize(),
-        success: function(data) {
-
-        },
-    })
-})
-
 </script>
 
 {% endblock %}
