@@ -134,7 +134,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss='modal'>Okay</button>
-                <button type="button qedit" class="btn btn-success" data-dismiss='modal'>Change Item</button>
+                <button type="button" class="btn btn-success" data-dismiss='modal'>Change Item</button>
             </div>
         </div>
     </div>
@@ -161,12 +161,6 @@ $('.delete').click(function() {
 $('.edit').click(function() {
     $oid = $(this).attr('oid');
     $bid = $(this).attr('bid');
-});
-
-$('.qedit').click(function() {
-    $.ajax({
-        url: '/blist/' + $bid + '/' + $oid + '/qedit/',
-    });
 });
 
 var share = window.location.href;

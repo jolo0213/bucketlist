@@ -102,19 +102,6 @@ def edit_details(request, bucket_id, item_id):
 	else:
 		form = ItemForm()
 	return render(request,'blist/edit.html', {'item':item,'form':form})
-	
-@login_required
-def qedit(request, bucket_id, item_id):
-	if request.is_ajax():
-		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-		if request.method == 'POST':
-			form = ItemForm(request.POST)
-			if form.is_valid():
-				qedit_item = Item.objects.get(pk=item_id)
-				form = ItemForm(request.POST,instance=qedit_item)
-				form.save()
-				return HttpResponse(status=200)
-	return HttpResponse(status=403)
 
 @login_required
 def favorites(request):
