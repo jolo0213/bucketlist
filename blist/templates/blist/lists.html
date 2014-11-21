@@ -1,0 +1,23 @@
+<div class='panel panel-default'>
+    <div class='panel-heading'>
+        {% if bucket.favorite == False %}
+            <b><a href="{% url 'blist:mod_fav_bl' bucket.pk %}" style='color:black;font-size:16px'><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></a></b>
+        {% else %}
+            <b><a href="{% url 'blist:mod_fav_bl' bucket.pk %}" style='color:gold;font-size:16px'><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></b>
+        {% endif %} 
+        <a href="{% url 'blist:items' bucket.id %}"><b>{{ bucket.bl_name }}</b></a>
+        <span class="glyphicon glyphicon-trash delete pull-right" aria-hidden="true" data-toggle="modal" data-target="#delete" oid='{{ bucket.pk }}' style='color:#A34747;cursor:pointer;font-size:16px'></span>
+        <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" data-toggle="collapse" href="#{{ bucket.pk }}" aria-controls="{{ bucket.pk }}" style='color:#337533;cursor:pointer;font-size:16px;padding-right:5px'></span>
+    </div>
+    <div id="{{ bucket.pk }}" class="panel-collapse collapse" role="tabpanel">
+        <ul class='list-group'>
+        {% for item in bucket.item_set.all %}
+            <li class='list-group-item'>{% if item.finish == NULL %} 
+                    {{ item.item_value }}
+                {% else %}
+                    <fin title="Completed: {{ item.finish }}" data-placement="right" data-toggle="tooltip">{{ item.item_value }}</fin>
+                {% endif %}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -53,36 +53,36 @@
 <!-- Additional Javascript -->
 
 <script>
-$(document).ready(function() {
-    $('#AddForm').submit(function() {
-        $.ajax({
-            type: $('#AddForm').attr('method'),
-            url: $('#AddForm').attr('action'),
-            data: $('#AddForm').serialize(),
-            success: function(data) {
-                $('#AddForm')[0].reset();
-                $('#ListGroup').append(data);
-            },
-            error: function() {
-                
-            },
-        });
-        return false;
+$('#AddForm').submit(function() {
+    $.ajax({
+        type: $('#AddForm').attr('method'),
+        url: $('#AddForm').attr('action'),
+        data: $('#AddForm').serialize(),
+        success: function(data) {
+            $('#AddForm')[0].reset();
+            $('#ListGroup').append(data);
+        },
+        error: function() {
+            
+        },
     });
+    return false;
 });
+
 
 $('.confirm').click(function() {
     $.ajax({
         url: '/blist/' + $oid + '/delete_bl/', 
         method: 'POST',
         success: function() {
-            $('.delete[oid=' + $oid + ']').closest('div').remove();
+            $('.delete[oid=' + $oid + ']').closest('div').parent().closest('div').remove();
         },
     })
 });
 
 $('.delete').click(function() {
     $oid = $(this).attr('oid');
+    alert($oid);
 });
 </script>
 
