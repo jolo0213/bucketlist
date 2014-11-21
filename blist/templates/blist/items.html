@@ -32,7 +32,7 @@
         </div>
 
         <div id="collapse-add" class="panel-collapse collapse" role="tabpanel">
-            <div class='panel-body'>
+            <div class='panel-body' id="AddBox">
                 <form action="." method="post" id='AddItem'>
                     {% csrf_token %}
                     <table class="form-table">
@@ -95,7 +95,7 @@
                 <h4 class="modal-title" id="edititem">Edit</h4>
             </div>
             <div class="modal-body">
-                <form action="/qedit/" method="post" id='quickedit'>
+                <form action="/qedit/" method="post" id='QuickEdit'>
                 {% csrf_token %}
                     <table class="form-table">
                         <tr>
@@ -130,11 +130,12 @@ $('#AddItem').submit(function() {
         url: $('#AddItem').attr('action'),
         data: $('#AddItem').serialize(),
         success: function(data) {
+            $('div[role=alert]').remove();
             $('#AddItem')[0].reset();
             $('#ItemList').append(data);
         },
         error: function() {
-            
+            $('#AddBox').append('<br><div class="alert alert-danger" role="alert"><p>Item Name is required</p></div>');
         },
     });
     return false;

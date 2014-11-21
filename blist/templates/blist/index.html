@@ -16,7 +16,7 @@
 
 <div class='panel panel-default'>
     <div class='panel-heading'>Add List</div>
-    <div class='panel-body'>
+    <div class='panel-body' id="AddBox">
         <form action="." method="post" id='AddForm'>
         	{% csrf_token %}
         	<table class="form-table">
@@ -59,11 +59,12 @@ $('#AddForm').submit(function() {
         url: $('#AddForm').attr('action'),
         data: $('#AddForm').serialize(),
         success: function(data) {
+            $('div[role=alert]').remove();
             $('#AddForm')[0].reset();
             $('#ListGroup').append(data);
         },
         error: function() {
-            
+            $('#AddBox').append('<br><div class="alert alert-danger" role="alert"><p>Please enter a list name to add</p></div>');
         },
     });
     return false;
