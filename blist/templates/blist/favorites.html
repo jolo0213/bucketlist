@@ -16,9 +16,9 @@
 			<ul class='list-group'>
 			{% for item in bucket.item_set.all %}
 		    	<li class='list-group-item'>{% if item.finish == NULL %} 
-		    			{{ item.item_value }}
+		    			<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> {{ item.item_value }}
 		    		{% else %}
-		    			<fin title="Completed: {{ item.finish }}" data-placement="right" data-toggle="tooltip">{{ item.item_value }}</fin>
+		    			<fin title="Completed: {{ item.finish }}" data-placement="right" data-toggle="tooltip"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> {{ item.item_value }}</fin>
 		    		{% endif %}</li>
 			{% endfor %}
 			</ul>

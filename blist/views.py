@@ -36,12 +36,17 @@ def index(request):
 def items(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
 	if request.method == 'POST':
-		add_form = ItemForm(request.POST)
-		if add_form.is_valid():
-			bucket_item = add_form.save(commit=False)
-			bucket_item.bucket = bucket
-			bucket_item.save()
-			return HttpResponseRedirect(reverse('blist:items', args=[bucket.pk]))
+		if request.is_ajax():
+			add_form = ItemForm(request.POST)
+			if add_form.is_valid():
+				bucket_item = add_form.save(commit=False)
+				bucket_item.bucket = bucket
+				bucket_item.save()
+				return HttpResponse(render_to_string('blist/item_list.html', {'item':bucket_item,'bucket':bucket}))
+			else:
+				return HttpResponse(status=400)
+		else:
+			return HttpResponse(status=403)
 	else:
 		add_form = ItemForm()
 	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form})

@@ -1,0 +1,16 @@
+<li class='list-group-item'>
+    {% if item.finish == NULL %}
+        <a href="{% url 'blist:finish' bucket.pk item.pk %}" style='color:grey'>
+            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+        </a>
+        <a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a> 
+    {% else %}
+        <a href="{% url 'blist:details' bucket.pk item.pk %}" style='color:green' data-placement="right" data-toggle="tooltip" title="Completed: {{ item.finish }}">
+            <span class="glyphicon glyphicon-check" aria-hidden="true"></span> {{ item.item_value }}
+        </a>
+    {% endif %}
+
+    <span class="glyphicon glyphicon-trash delete pull-right" aria-hidden="true" data-toggle="modal" data-target="#delete" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' style='color:#A34747;cursor:pointer;font-size:16px'></span>
+
+    <span class="glyphicon glyphicon-edit edit pull-right" aria-hidden="true" data-toggle="modal" data-target="#edit" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' style='color:#D1AC19;cursor:pointer;font-size:16px;padding-right:5px'></span>
+</li>

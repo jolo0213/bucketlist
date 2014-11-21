@@ -17,28 +17,9 @@
     <div class="panel-heading"><b>{{ bucket.bl_name }}</b></div>
 
     <div class='panel-body'>
-        <ul class='list-group'>
+        <ul class='list-group' id='ItemList'>
             {% for item in bucket.item_set.all %}
-                <li class='list-group-item'>
-                    {% if item.finish == NULL %}
-                        <a href="{% url 'blist:finish' bucket.pk item.pk %}" style='color:green'>
-                            <span class="label label-success"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></span>
-                        </a>
-                        <a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a> 
-                    {% else %}
-                        <a href="{% url 'blist:details' bucket.pk item.pk %}" style='color:green' data-placement="right" data-toggle="tooltip" title="Completed: {{ item.finish }}">
-                            {{ item.item_value }}
-                        </a>
-                    {% endif %}
-
-                    <button type="button" class="btn-xs btn-danger delete pull-right" data-toggle="modal" data-target="#delete" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'>
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-
-                    <button type="button" class="btn-xs btn-warning edit pull-right" data-toggle="modal" data-target="#edit" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'>
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    </button> 
-                </li>
+                {% include 'blist/item_list.html' %}
             {% endfor %}
         </ul>
     </div>
@@ -52,7 +33,7 @@
 
         <div id="collapse-add" class="panel-collapse collapse" role="tabpanel">
             <div class='panel-body'>
-                <form action="." method="post" id='add-item'>
+                <form action="." method="post" id='AddItem'>
                     {% csrf_token %}
                     <table class="form-table">
                     <tr>
@@ -68,7 +49,7 @@
                         <td>{{ form.item_desc }}</td>
                     </tr>
                     </table>
-                    <tr><td><button type="button submit" class="btn-xs btn-primary">Add Item</button></td></tr>
+                    <tr><td><input type="submit" class="btn-xs btn-primary" value='Add Item'></td></tr>
                 </form>
             </div>
         </div>
@@ -143,6 +124,22 @@
 <!-- Additional Javascript -->
 
 <script>
+$('#AddItem').submit(function() {
+    $.ajax({
+        type: $('#AddItem').attr('method'),
+        url: $('#AddItem').attr('action'),
+        data: $('#AddItem').serialize(),
+        success: function(data) {
+            $('#AddItem')[0].reset();
+            $('#ItemList').append(data);
+        },
+        error: function() {
+            
+        },
+    });
+    return false;
+});
+
 $('.confirm').click(function() {
     $.ajax({
         url: '/blist/' + $bid + '/' + $oid + '/delete/', 
