@@ -13,5 +13,6 @@ urlpatterns = patterns('',
 	url(r'^(?P<bucket_id>\d+)/(?P<item_id>\d+)/finish/$', views.finish, name='finish'),
 	url(r'^(?P<bucket_id>\d+)/(?P<item_id>\d+)/qedit/$', views.qedit, name='qedit'),
 	url(r'^(?P<bucket_id>\d+)/(?P<item_id>\d+)/details/$', views.details, name='details'),
+	url(r'^(?P<bucket_id>\d+)/(?P<item_id>\d+)/details/share/$', views.share_details, name='sdetails'),
 	url(r'^(?P<bucket_id>\d+)/(?P<item_id>\d+)/details/edit/$', views.edit_details, name='edit'),
 )

@@ -50,6 +50,10 @@ def share(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id)
 	return render(request,'blist/share.html', {'bucket':bucket,})
 
+def share_details(request, bucket_id, item_id):
+	item = get_object_or_404(Item,pk=item_id)
+	return render(request,'blist/share_details.html', {'item':item,})
+
 @login_required
 def details(request, bucket_id, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
