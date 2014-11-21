@@ -151,7 +151,7 @@ $('.confirm').click(function() {
     })
 });
 
-$('.delete').click(function() {
+$('#ItemList').on('click', '.delete', function() {
     $oid = $(this).attr('oid');
     $bid = $(this).attr('bid');
 });
