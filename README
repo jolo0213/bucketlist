@@ -10,9 +10,7 @@ Current Features:
  - users can check off which items have been completed
  - users can search for items (not lists)
  - users can share a link to a list to other people who don't need to be registered
- - jquery ui widgets add cleaner look and delete confirmation
 
 Future Additions:
  - edit item descriptions without leaving list screen (quick edit)
  - sharing edit permissions with logged in users
- - sharing viewable list even to anonymous users

@@ -95,27 +95,27 @@
                 <h4 class="modal-title" id="edititem">Edit</h4>
             </div>
             <div class="modal-body">
-                <form action="/qedit/" method="post" id='QuickEdit'>
+                <form action='/qedit/' method="post" id='QuickEdit'>
                 {% csrf_token %}
                     <table class="form-table">
                         <tr>
                             <td>Item Name: </td>
-                            <td>{{ form.item_value }}</td>
+                            <td>{{ edit.item_value }}</td>
                         </tr>
                         <tr>
                             <td>URL (optional): </td>
-                            <td>{{ form.item_url }}</td>
+                            <td>{{ edit.item_url }}</td>
                         </tr>
                         <tr>
                             <td>Description (optional): </td>
-                            <td>{{ form.item_desc }}</td>
+                            <td>{{ edit.item_desc }}</td>
                         </tr>
                     </table>
+                    <input type="submit" class="btn btn-success" data-dismiss='modal' value='Change Item'>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss='modal'>Okay</button>
-                <button type="button" class="btn btn-success" data-dismiss='modal'>Change Item</button>
+                <button type="button" class="btn btn-default" data-dismiss='modal'>Cancel</button>
             </div>
         </div>
     </div>
@@ -140,6 +140,22 @@ $('#AddItem').submit(function() {
     });
     return false;
 });
+
+$('#QuickEdit').submit(function() {
+    $.ajax({
+        type: $('#QuickEdit').attr('method'),
+        url: $('QuickEdit').attr('action'),
+        data: $('QuickEdit').serialize(),
+        success: function(data) {
+            $('#QuickEdit')[0].reset();
+            $('span[oid=' + $oid + ']').parent().closest('li').remove();
+            $('#ItemList').append(data);
+        },
+        error: function() {
+
+        },
+    })
+})
 
 $('.confirm').click(function() {
     $.ajax({
