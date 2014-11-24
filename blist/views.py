@@ -107,7 +107,10 @@ def mod_favorite(request, bucket_id):
 @login_required
 def finish(request, bucket_id, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-	item.finish = datetime.now()
+	if (item.finish != None):
+		item.finish = None
+	else:
+		item.finish = datetime.now()
 	item.save()
 	return HttpResponseRedirect(reverse('blist:items', args=[item.bucket.pk]))
 
