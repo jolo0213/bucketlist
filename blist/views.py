@@ -160,3 +160,14 @@ def xu_name(request, bucket_id, item_id):
 			item.item_name = new_name
 			item.save()
 			return HttpResponse(status=200)
+
+@login_required
+def xu_date(request, bucket_id, item_id):
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	if request.method == 'POST':
+		if request.is_ajax():
+			new_date = request.POST.get('value')
+			item.finish = new_date
+			item.save()
+			return HttpResponse(status=200)
+			

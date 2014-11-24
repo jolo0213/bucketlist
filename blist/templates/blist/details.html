@@ -13,7 +13,7 @@
 	<ul class='list-group'>
 		<li class='list-group-item'><b>Name:</b> <a href="#" class='iname'>{{ item.item_value }}</a></li>
 		{% if item.finish != NULL %} 
-		<li class='list-group-item'><b>Completed:</b> {{ item.finish }}</li>
+		<li class='list-group-item'><b>Completed:</b> <a href="#" class='idate'>{{ item.finish }}</a></li>
 		{% endif %}
 		<li class='list-group-item'><b>URL: </b><a href="#" class="iurl">{{ item.item_url }}</a></li>
 		<li class='list-group-item'><b>Description: </b><br><a href="#" class="idesc">{{ item.item_desc }}</a></li>
@@ -40,6 +40,13 @@ $('.iname').editable({
     		return 'Please enter an item name';
     	}
     },
+});
+
+$('.idate').editable({
+	type: 'combodate',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_date" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}", 
 });
 
 $('.idesc').editable({

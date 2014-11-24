@@ -20,7 +20,7 @@ class Item(models.Model):
 	item_value = models.CharField(max_length=200, validators=[validate_full])
 	item_url = models.URLField(max_length=200,null=True,blank=True)
 	item_desc = models.CharField(max_length=1000,null=True,blank=True)
-	finish = models.DateTimeField(null=True,blank=True)
+	finish = models.DateField(null=True,blank=True)
 
 	def __str__(self):
 		return self.item_value
