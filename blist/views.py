@@ -157,7 +157,7 @@ def xu_name(request, bucket_id, item_id):
 	if request.method == 'POST':
 		if request.is_ajax():
 			new_name = request.POST.get('value')
-			item.item_name = new_name
+			item.item_value = new_name
 			item.save()
 			return HttpResponse(status=200)
 
@@ -170,4 +170,3 @@ def xu_date(request, bucket_id, item_id):
 			item.finish = new_date
 			item.save()
 			return HttpResponse(status=200)
-			
