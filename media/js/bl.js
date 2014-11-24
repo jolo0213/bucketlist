@@ -48,8 +48,11 @@ $.ajaxSetup({
     }
 });
 
-/* JQuery UI function sections */
+/* JQuery UI function section */
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+/* X-Editable function section */
+$.fn.editable.defaults.mode = 'inline';

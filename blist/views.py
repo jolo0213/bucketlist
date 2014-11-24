@@ -50,25 +50,6 @@ def items(request, bucket_id):
 		edit_form = ItemForm()
 	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form, 'edit':edit_form})
 
-@login_required
-def qedit(request, bucket_id, item_id):
-	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
-	if request.method == 'POST':
-		if request.is_ajax():
-			form = ItemForm(request.POST)
-			if form.is_valid():
-				edit_item = Item.objects.get(pk=item_id)
-				form = ItemForm(request.POST,instance=edit_item)
-				form.save()
-				return HttpResponse(render_to_string('blist/item_list.html', {'item':bucket_item,'bucket':bucket}))
-			else:
-				return HttpResponse(status=400)
-		else:
-			return HttpResponse(status=403)
-	else:
-		form = ItemForm()
-		return HttpResponse(status=403)
-
 def share(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id)
 	return render(request,'blist/share.html', {'bucket':bucket,})
@@ -109,24 +90,6 @@ def delete_bucket(request, bucket_id):
 	return HttpResponse(status=403)
 
 @login_required
-def edit_details(request, bucket_id, item_id):
-	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-	if request.method == 'POST':
-		form = ItemForm(request.POST)
-		if form.is_valid():
-			edit_item = Item.objects.get(pk=item_id)
-			form = ItemForm(request.POST,instance=edit_item)
-			form.save()
-			return HttpResponseRedirect(reverse('blist:details', args=[bucket_id, edit_item.pk]))
-		else:
-			edit_item = Item.objects.get(pk=item_id)
-			form = ItemForm(instance=edit_item)
-			return HttpResponseRedirect(reverse('blist:details', args=[bucket_id, edit_item.pk]))
-	else:
-		form = ItemForm()
-	return render(request,'blist/edit.html', {'item':item,'form':form})
-
-@login_required
 def favorites(request):
 	bucket_list = BL.objects.filter(owner=request.user,favorite=True)
 	return render(request,'blist/favorites.html', {'bucket_list':bucket_list,})
@@ -164,3 +127,33 @@ def search(request):
 			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
 			return render(request, 'blist/search.html', {'items':item,'query':q,'source':ivals})
 	return render(request, 'blist/search.html', {'error':error, 'source':ivals})
+
+@login_required
+def xu_desc(request, bucket_id, item_id):
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	if request.method == 'POST':
+		if request.is_ajax():
+			new_desc = request.POST.get('value')
+			item.item_desc = new_desc
+			item.save()
+			return HttpResponse(status=200)
+
+@login_required
+def xu_url(request, bucket_id, item_id):
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	if request.method == 'POST':
+		if request.is_ajax():
+			new_url = request.POST.get('value')
+			item.item_url = new_url
+			item.save()
+			return HttpResponse(status=200)
+
+@login_required
+def xu_name(request, bucket_id, item_id):
+	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	if request.method == 'POST':
+		if request.is_ajax():
+			new_name = request.POST.get('value')
+			item.item_name = new_name
+			item.save()
+			return HttpResponse(status=200)

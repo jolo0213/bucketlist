@@ -9,20 +9,17 @@
 </div>
 
 <div class='panel panel-default'>
-	<div class='panel-heading'>{{ item.item_value }}</div>
+	<div class='panel-heading'>Details</div>
 	<ul class='list-group'>
+		<li class='list-group-item'><b>Name:</b> <a href="#" class='iname'>{{ item.item_value }}</a></li>
 		{% if item.finish != NULL %} 
 		<li class='list-group-item'><b>Completed:</b> {{ item.finish }}</li>
 		{% endif %}
-		<li class='list-group-item'><b>URL: </b>{{ item.item_url }}</li>
-		<li class='list-group-item'><b>Description: </b><br>{{ item.item_desc }}</li>
+		<li class='list-group-item'><b>URL: </b><a href="#" class="iurl">{{ item.item_url }}</a></li>
+		<li class='list-group-item'><b>Description: </b><br><a href="#" class="idesc">{{ item.item_desc }}</a></li>
 	</ul>
 	<div class='panel-body'>
-		<a href="{% url 'blist:edit' item.bucket.pk item.pk %}">
-			<button type="button" class="btn btn-warning">
-		    	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
-			</button>
-		</a>
+		<div class="alert alert-success" role="alert"><p>Click on a field to edit its entry</p></div>
 	</div>
 </div>
 
@@ -31,5 +28,33 @@
     	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
 	</button>
 </a>
+
+<script>
+$('.iname').editable({
+	type: 'text',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_name" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+	validate: function(value) {
+    	if($.trim(value) == '') {
+    		return 'Please enter an item name';
+    	}
+    },
+});
+
+$('.idesc').editable({
+	type: 'textarea',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_desc" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+});
+
+$('.iurl').editable({
+	type: 'url',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_url" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+});
+</script>
 
 {% endblock %}
