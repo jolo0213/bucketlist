@@ -55,4 +55,5 @@ $(function () {
 })
 
 /* X-Editable function section */
+
 $.fn.editable.defaults.mode = 'inline';

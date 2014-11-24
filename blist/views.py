@@ -42,7 +42,7 @@ def items(request, bucket_id):
 				bucket_item = add_form.save(commit=False)
 				bucket_item.bucket = bucket
 				bucket_item.save()
-				return HttpResponse(render_to_string('blist/item_list.html', {'item':bucket_item,'bucket':bucket}))
+				return HttpResponse(render_to_string('blist/item_table.html', {'item':bucket_item,'bucket':bucket}))
 			else:
 				return HttpResponse(status=400)
 	else:
