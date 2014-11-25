@@ -64,6 +64,8 @@ def details(request, bucket_id, item_id):
 	return render(request,'blist/details.html', {'item':item,})
 
 def register(request):
+	if request.user.is_authenticated():
+		HttpResponseRedirect('/blist/')
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
 		if form.is_valid():

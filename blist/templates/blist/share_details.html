@@ -9,15 +9,29 @@
 </div>
 
 <div class='panel panel-default'>
-    <div class='panel-heading'>{{ item.item_value }}</div>
-    <ul class='list-group'>
-        <li class='list-group-item'><b>Owner: </b>{{ item.bucket.owner }}</li>
-        {% if item.finish != NULL %} 
-        <li class='list-group-item'><b>Completed:</b> {{ item.finish }}</li>
-        {% endif %}
-        <li class='list-group-item'><b>URL: </b>{{ item.item_url }}</li>
-        <li class='list-group-item'><b>Description: </b><br>{{ item.item_desc }}</li>
-    </ul>
+    <div class='panel-heading'>Details</div>
+    <div class='panel-body'>
+        <table class='table-striped table-condensed' width="100%">
+            <tr>
+                <th width='20%'><b>Name:</b></th>
+                <td width='80%'>{{ item.item_value }}</td>
+            </tr>
+            {% if item.finish != NULL %} 
+            <tr>
+                <th width='20%'><b>Completed:</b></th>
+                <td width='80%'>{{ item.finish }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th width='20%'><b>URL: </b></th>
+                <td width='80%'>{{ item.item_url }}</td>
+            </tr>
+            <tr>
+                <th width='20%'><b>Description: </b></th>
+                <td width='80%'>{{ item.item_desc }}</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <a href="{% url 'blist:share' item.bucket.pk %}">

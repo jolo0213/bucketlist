@@ -10,14 +10,28 @@
 
 <div class='panel panel-default'>
 	<div class='panel-heading'>Details</div>
-	<ul class='list-group'>
-		<li class='list-group-item'><b>Name:</b> <a href="#" class='iname'>{{ item.item_value }}</a></li>
-		{% if item.finish != NULL %} 
-		<li class='list-group-item'><b>Completed:</b> <a href="#" class='idate'>{{ item.finish }}</a></li>
-		{% endif %}
-		<li class='list-group-item'><b>URL: </b><a href="#" class="iurl">{{ item.item_url }}</a></li>
-		<li class='list-group-item'><b>Description: </b><br><a href="#" class="idesc">{{ item.item_desc }}</a></li>
-	</ul>
+	<div class='panel-body'>
+		<table class='table-striped table-condensed' width="100%">
+			<tr>
+				<th width='20%'><b>Name:</b></th>
+				<td width='80%'><a href="#" class='iname'>{{ item.item_value }}</a></td>
+			</tr>
+			{% if item.finish != NULL %} 
+			<tr>
+				<th width='20%'><b>Completed:</b></th>
+				<td width='80%'><a href="#" class='idate'>{{ item.finish }}</a></td>
+			</tr>
+			{% endif %}
+			<tr>
+				<th width='20%'><b>URL: </b></th>
+				<td width='80%'><a href="#" class="iurl">{{ item.item_url }}</a></td>
+			</tr>
+			<tr>
+				<th width='20%'><b>Description: </b></th>
+				<td width='80%'><a href="#" class="idesc">{{ item.item_desc }}</a></td>
+			</tr>
+		</table>
+	</div>
 	<div class='panel-body'>
 		<div class="alert alert-success" role="alert"><p>Click on a field to edit its entry</p></div>
 	</div>
@@ -44,9 +58,17 @@ $('.iname').editable({
 
 $('.idate').editable({
 	type: 'combodate',
+	format: 'YYYY-MM-DD',
+	viewformat: 'MMM. DD, YYYY',
+	template: 'MMM / DD / YYYY',
 	pk: '{{ item.pk }}',
 	url: '{% url "blist:xu_date" item.bucket.pk item.pk %}',
 	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}", 
+	validate: function(value) {
+    	if(value == null || value == '') {
+    		return 'Finished date cannot be blank';
+    	}
+    },
 });
 
 $('.idesc').editable({
