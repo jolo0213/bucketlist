@@ -117,6 +117,8 @@ $('#AddItem').submit(function() {
             $('div[role=alert]').remove();
             $('#AddItem')[0].reset();
             $('#ItemTable').append(data);
+            $('.idesc').editable();
+            $('.iurl').editable();
         },
         error: function() {
             $('#AddBox').append('<br><div class="alert alert-danger" role="alert"><p>Item Name is required</p></div>');
