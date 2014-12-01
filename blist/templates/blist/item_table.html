@@ -1,15 +1,15 @@
 <tr>
     <td style="text-align:center" width="5%">
     {% if item.finish == NULL %}
-        <a style='color:grey' oid='{{ item.pk }}'>
-            <span class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
+        <a oid='{{ item.pk }}'>
+            <span style='color:grey' class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
         </a></td>
         <td width='20%'><a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a></td>
     {% else %}
-        <a style='color:green' oid='{{ item.pk }}'>
-            <span class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span> 
+        <a oid='{{ item.pk }}'>
+            <span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span> 
         </a></td>
-        <td width='20%'><a href="{% url 'blist:details' bucket.pk item.pk %}" style='color:green' data-placement="right" data-toggle="tooltip" title="Completed: {{ item.finish }}">{{ item.item_value }}</a></td>
+        <td width='20%'><a href="{% url 'blist:details' bucket.pk item.pk %}" data-placement="right" data-toggle="tooltip" title="Completed: {{ item.finish }}">{{ item.item_value }}</a></td>
     {% endif %}
 
     <td width='25%'>
