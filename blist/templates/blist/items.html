@@ -141,6 +141,28 @@ $('#ItemTable').on('click', '.delete', function() {
     $oid = $(this).attr('oid');
     $bid = $(this).attr('bid');
 });
+
+$('#ItemTable').on('click', '.finish', function() {
+    $oid = $(this).attr('oid');
+    $bid = $(this).attr('bid');
+});
+
+$('.finish').click(function() {
+    $.ajax({
+        url: '/blist/' + $bid + '/' + $oid + '/finish/',
+        method: 'POST',
+        success: function() {
+            if ($('a[oid=' + $oid + ']').style['color:grey']) {
+                $('a[oid=' + $oid + ']').remove();
+                $('a[oid=' + $oid + ']').append('<span class="glyphicon glyphicon-check finish" aria-hidden="true" oid="{{ item.pk }}" bid="{{ item.bucket.pk }}"></span> ');
+            } else {
+                /* Need to change style to green too */
+                $('a[oid=' + $oid + ']').remove();
+                $('a[oid=' + $oid + ']').append('<span class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid="{{ item.pk }}" bid="{{ item.bucket.pk }}"></span> ');
+            };
+        },
+    });
+});
 </script>
 
 {% endblock %}

@@ -108,13 +108,16 @@ def mod_favorite(request, bucket_id):
 
 @login_required
 def finish(request, bucket_id, item_id):
-	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-	if (item.finish != None):
-		item.finish = None
-	else:
-		item.finish = datetime.now()
-	item.save()
-	return HttpResponseRedirect(reverse('blist:items', args=[item.bucket.pk]))
+	if request.is_ajax():
+		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+		if (item.finish != None):
+			item.finish = None
+		else:
+			item.finish = datetime.now()
+		item.save()
+		return HttpResponse(status=200)
+	return HttpResponse(status=403)
+	#return HttpResponseRedirect(reverse('blist:items', args=[item.bucket.pk]))
 
 @login_required
 def search(request):
