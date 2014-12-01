@@ -18,9 +18,9 @@
         <table class='table table-striped table-condensed' id='ItemTable'>
             <tr>
                 <th style="text-align:center" width="5%">Done</th>
-                <th>Name</th>
-                <th>URL</th>
-                <th>Description</th>
+                <th width='20%'>Name</th>
+                <th width='25%'>URL</th>
+                <th width='45%'>Description</th>
                 <th style='text-align:center' width="5%">Delete</th>
             {% for item in bucket.item_set.all %}
                 {% include 'blist/item_table.html' %}

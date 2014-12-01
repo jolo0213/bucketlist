@@ -64,11 +64,6 @@ $('.idate').editable({
 	pk: '{{ item.pk }}',
 	url: '{% url "blist:xu_date" item.bucket.pk item.pk %}',
 	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}", 
-	validate: function(value) {
-    	if(value == null || value == '') {
-    		return 'Finished date cannot be blank';
-    	}
-    },
 });
 
 $('.idesc').editable({
