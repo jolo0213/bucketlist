@@ -71,6 +71,7 @@ $('.idesc').editable({
 	pk: '{{ item.pk }}',
 	url: '{% url "blist:xu_desc" item.bucket.pk item.pk %}',
 	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+	emptytext: "No description"
 });
 
 $('.iurl').editable({
@@ -78,6 +79,7 @@ $('.iurl').editable({
 	pk: '{{ item.pk }}',
 	url: '{% url "blist:xu_url" item.bucket.pk item.pk %}',
 	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+	emptytext: 'No URL'
 });
 </script>
 

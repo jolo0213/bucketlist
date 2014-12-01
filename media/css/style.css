@@ -13,3 +13,13 @@ a:link, a:visited, a:hover, a:active {
 .accordion {
 	width:100%;
 }
+
+a.editable-click {
+	font-style: italic;
+  	border-color: green;
+} 
+
+a.editable-empty {
+  	color: gray;
+  	font-style: italic;
+}

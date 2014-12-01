@@ -13,11 +13,11 @@
     {% endif %}
 
     <td width='25%'>
-        <a href="#" class="iurl" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_url' item.bucket.pk item.pk %}" data-type="url" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">{{ item.item_url }}</a>
+        <a href="#" class="iurl" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_url' item.bucket.pk item.pk %}" data-type="url" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-emptytext='No URL'>{{ item.item_url }}</a>
     </td>
 
     <td width='45%'>
-        <a href="#" class="idesc" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_desc' item.bucket.pk item.pk %}" data-type="textarea" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}">{{ item.item_desc }}</a>
+        <a href="#" class="idesc" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_desc' item.bucket.pk item.pk %}" data-type="textarea" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-emptytext='No description'>{{ item.item_desc }}</a>
     </td>
 
     <td width="5%" style='text-align:center'>
