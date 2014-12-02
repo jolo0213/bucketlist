@@ -10,13 +10,13 @@
 	{% for bucket in bucket_list %}
 	<div class='panel panel-default'>
 		<div class='panel-heading'>
-			<a data-toggle="collapse" href="#{{ bucket.pk }}" aria-expanded="true" aria-controls="{{ bucket.pk }}"><b>{{ bucket.bl_name }}</b></a>
+			<a data-toggle="collapse" href="#{{ bucket.pk }}" aria-expanded="true" aria-controls="{{ bucket.pk }}"><b>{{ bucket.name }}</b></a>
 		</div>
 		<div id="{{ bucket.pk }}" class="panel-collapse collapse in" role="tabpanel">
 			<ul class='list-group itemlist'>
 			{% for item in bucket.item_set.all %}
 		    	<li class='list-group-item'>
-		    		{% if item.finish == NULL %} 
+		    		{% if item.finish == none %} 
 		    			<a href="javascript:void(0);" oid='{{ item.pk }}' fin='0'>
 				            <span class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
 				        </a> {{ item.item_value }}

@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
 
 def validate_full(value):
 	if value is None:
@@ -9,11 +11,17 @@ def validate_full(value):
 # Create your models here.
 class BL(models.Model):
 	owner = models.ForeignKey(settings.AUTH_USER_MODEL)
-	bl_name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50)
 	favorite = models.BooleanField(default=False)
 
-	def __str__(self):
-		return self.bl_name
+	def get_absolute_url(self):
+		return reverse('blist:items', args=[self.id,])
+
+	def get_share_url(self):
+		return 'http://' + str(Site.objects.get(id=1)) + str(self.get_absolute_url()) + 'share'
+
+	def __unicode__(self):
+		return self.name
 
 class Item(models.Model):
 	bucket = models.ForeignKey(BL)
@@ -22,5 +30,5 @@ class Item(models.Model):
 	item_desc = models.CharField(max_length=500,null=True,blank=True)
 	finish = models.DateField(null=True,blank=True)
 
-	def __str__(self):
+	def __unicode__(self):
 		return self.item_value

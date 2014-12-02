@@ -12,4 +12,4 @@ class ItemForm(ModelForm):
 class BLForm(ModelForm):
 	class Meta:
 		model = BL
-		fields = ('bl_name',)
+		fields = ('name',)

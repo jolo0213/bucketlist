@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='BL',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('bl_name', models.CharField(max_length=50)),
+                ('name', models.CharField(max_length=50)),
                 ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

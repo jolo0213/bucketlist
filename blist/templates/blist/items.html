@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} | {{ bucket.bl_name }}{% endblock %}
+{% block title %} | {{ bucket.name }}{% endblock %}
 
 {% block head %}
 {% endblock %}
@@ -8,11 +8,11 @@
 {% block content %}
 
 <div class="panel panel-default">
-    <div class="panel-heading"><h4>{{ bucket.bl_name }}</h4></div>
+    <div class="panel-heading"><h4>{{ bucket.name }}</h4></div>
 </div>
 
 <div class="panel panel-default">
-    <div class="panel-heading"><b>{{ bucket.bl_name }}</b></div>
+    <div class="panel-heading"><b>{{ bucket.name }}</b></div>
 
     <div class='panel-body'>
         <table class='table table-striped table-condensed' id='ItemTable'>
@@ -69,7 +69,7 @@
 <div class="panel panel-default">
     <div class="panel-heading"><b>Share This List</b></div>
     <div class="panel-body">
-        <div class='well well-sm share'></div>
+        <input type='text' value='{{ bucket.get_share_url }}' size='30' readonly></input>
     </div>
 </div>
 
@@ -100,12 +100,8 @@
 <!-- Additional Javascript -->
 
 <script>
-$(document).ready(function(){
-    var share = window.location.href;
-    share = share.replace(/#/g, '');
-    $('.share').append(share + 'share/');
-    $('.idesc').editable();
-    $('.iurl').editable();
+$(document).ready(function() {
+    $('.idesc, .iurl').editable();
 });
 
 $('#AddItem').submit(function() {
@@ -117,8 +113,7 @@ $('#AddItem').submit(function() {
             $('div[role=alert]').remove();
             $('#AddItem')[0].reset();
             $('#ItemTable').append(data);
-            $('.idesc').editable();
-            $('.iurl').editable();
+            $('.idesc, .iurl').editable();
         },
         error: function() {
             $('#AddBox').append('<br><div class="alert alert-danger" role="alert"><p>Item Name is required</p></div>');

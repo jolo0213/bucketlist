@@ -6,9 +6,9 @@ class ItemInline(admin.TabularInline):
 	extra = 5
 
 class BucketAdmin(admin.ModelAdmin):
-	fieldsets = [('List Properties',{'fields':['bl_name','owner']})]
+	fieldsets = [('List Properties',{'fields':['name','owner']})]
 	inlines = [ItemInline]
-	search_fields = ['bl_name']
+	search_fields = ['name']
 
 # Register your models here.
 admin.site.register(BL, BucketAdmin)

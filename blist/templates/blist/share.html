@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} | {{ bucket.bl_name }}{% endblock %}
+{% block title %} | {{ bucket.name }}{% endblock %}
 
 {% block head %}
 {% endblock %}
@@ -8,19 +8,19 @@
 {% block content %}
 
 <div class="panel panel-default">
-    <div class="panel-heading"><h4>{{ bucket.bl_name }}</h4></div>
+    <div class="panel-heading"><h4>{{ bucket.name }}</h4></div>
 </div>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <div class="panel panel-default">
-    <div class="panel-heading"><b>{{ bucket.bl_name }}</b></div>
+    <div class="panel-heading"><b>{{ bucket.name }}</b></div>
 
     <div class='panel-body'>
         <ul class='list-group'>
             {% for item in bucket.item_set.all %}
                 <li class='list-group-item'>
-                    {% if item.finish == NULL %}
+                    {% if item.finish == none %}
                         <span class="glyphicon glyphicon-unchecked finish" aria-hidden="true"></span> 
                         <a href="{% url 'blist:sdetails' bucket.pk item.pk %}">{{ item.item_value }}</a> 
                     {% else %}

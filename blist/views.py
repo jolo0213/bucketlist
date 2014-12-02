@@ -47,8 +47,7 @@ def items(request, bucket_id):
 				return HttpResponse(status=400)
 	else:
 		add_form = ItemForm()
-		edit_form = ItemForm()
-	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form, 'edit':edit_form})
+	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form,})
 
 def share(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id)
@@ -100,10 +99,7 @@ def favorites(request):
 def mod_favorite(request, bucket_id):
 	if request.is_ajax():
 		bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
-		if (bucket.favorite == False):
-			bucket.favorite = True
-		else:
-			bucket.favorite = False
+		bucket.favorite = not bucket.favorite
 		bucket.save()
 		return HttpResponse(status=200)
 	return HttpResponse(status=403)
@@ -112,7 +108,7 @@ def mod_favorite(request, bucket_id):
 def finish(request, bucket_id, item_id):
 	if request.is_ajax():
 		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
-		if (item.finish != None):
+		if item.finish != None:
 			item.finish = None
 		else:
 			item.finish = datetime.now()
@@ -122,11 +118,7 @@ def finish(request, bucket_id, item_id):
 
 @login_required
 def search(request):
-	source = Item.objects.filter(bucket__owner=request.user).values('item_value')
-	ivals = []
-	for item in source:
-		ivals.append(item['item_value'])
-	ivals = json.dumps(ivals)
+	ivals = json.dumps(list(Item.objects.filter(bucket__owner=request.user).values_list('item_value',flat=True)))
 	error = False
 	if 'q' in request.GET:
 		q = request.GET['q']
