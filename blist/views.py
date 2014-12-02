@@ -14,8 +14,11 @@ from blist.forms import ItemForm, BLForm
 
 # Create your views here.
 @login_required
-def index(request):
-	bucket_list = BL.objects.filter(owner=request.user)
+def index(request, faves=False):
+	if faves == False:
+		bucket_list = BL.objects.filter(owner=request.user)
+	else:
+		bucket_list = BL.objects.filter(owner=request.user,favorite=True)
 	if request.method == 'POST':
 		if request.is_ajax():
 			add_list_form = BLForm(request.POST)
@@ -89,11 +92,6 @@ def delete_bucket(request, bucket_id):
 		bucket.delete()
 		return HttpResponse(status=200)
 	return HttpResponse(status=403)
-
-@login_required
-def favorites(request):
-	bucket_list = BL.objects.filter(owner=request.user,favorite=True)
-	return render(request,'blist/favorites.html', {'bucket_list':bucket_list,})
 
 @login_required
 def mod_favorite(request, bucket_id):
