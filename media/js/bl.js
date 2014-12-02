@@ -48,12 +48,55 @@ $.ajaxSetup({
     }
 });
 
-/* Bootstrap function section */
+/* Bootstrap functions */
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
-})
+});
 
-/* X-Editable function section */
+/* X-Editable functions */
 
 $.fn.editable.defaults.mode = 'inline';
+
+/* Custom functions */
+
+function togglefav() {
+    $bid = $(this).attr('bid');
+    $.ajax({
+        url: '/blist/' + $bid + '/mod_fav_bl/',
+        method: 'POST',
+        success: function() {
+            if ($("a[bid=" + $bid + "]").attr('fav') == '0') {
+                $("a[bid=" + $bid + "]").attr('fav','1');
+                $("a[bid=" + $bid + "]").empty();
+                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" style="color:gold;font-size:16px" class="glyphicon glyphicon-star togfav" aria-hidden="true"></span>');
+            } else {
+                $("a[bid=" + $bid + "]").attr('fav','0');
+                $("a[bid=" + $bid + "]").empty();
+                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" style="color:black;font-size:16px" class="glyphicon glyphicon-star-empty togfav" aria-hidden="true"></span>');
+            };
+        },
+    });
+};
+
+function toggledone() {
+    $oid = $(this).attr('oid');
+    $bid = $(this).attr('bid');
+    $now = moment().format('MMM. D, YYYY');
+    $.ajax({
+        url: '/blist/' + $bid + '/' + $oid + '/finish/',
+        method: 'POST',
+        success: function() {
+            if ($("a[oid=" + $oid + "]").attr('fin') == '0') {
+                $('a[oid=' + $oid + ']').attr('fin','1');
+                $('a[oid=' + $oid + ']').empty();
+                $('a[oid=' + $oid + ']').append('<span style="color:green" class="glyphicon glyphicon-check finish" aria-hidden="true" oid="' + $oid + '" bid="' + $bid + '" data-placement="left" data-toggle="tooltip" title="Completed: ' + $now + '"></span> ');
+                $('[data-toggle="tooltip"]').tooltip();
+            } else {
+                $('a[oid=' + $oid + ']').attr('fin','0');
+                $('a[oid=' + $oid + ']').empty();
+                $('a[oid=' + $oid + ']').append('<span style="color:#808080" class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid="' + $oid + '" bid="' + $bid + '"></span> ');
+            };
+        },
+    });
+};
