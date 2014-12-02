@@ -105,6 +105,25 @@ $('.itemlist').on('click', '.finish', function() {
         },
     });
 });
+
+$('.listhead').on('click', '.togfav', function() {
+    $bid = $(this).attr('bid');
+    $.ajax({
+        url: '/blist/' + $bid + '/mod_fav_bl/',
+        method: 'POST',
+        success: function() {
+            if ($("a[bid=" + $bid + "]").attr('fav') == '0') {
+                $("a[bid=" + $bid + "]").attr('fav','1');
+                $("a[bid=" + $bid + "]").empty();
+                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" style="color:gold;font-size:16px" class="glyphicon glyphicon-star togfav" aria-hidden="true"></span>');
+            } else {
+                $("a[bid=" + $bid + "]").attr('fav','0');
+                $("a[bid=" + $bid + "]").empty();
+                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" style="color:black;font-size:16px" class="glyphicon glyphicon-star-empty togfav" aria-hidden="true"></span>');
+            };
+        },
+    });
+});
 </script>
 
 {% endblock %}

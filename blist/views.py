@@ -98,13 +98,15 @@ def favorites(request):
 
 @login_required
 def mod_favorite(request, bucket_id):
-	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
-	if (bucket.favorite == False):
-		bucket.favorite = True
-	else:
-		bucket.favorite = False
-	bucket.save()
-	return HttpResponseRedirect('/blist/')
+	if request.is_ajax():
+		bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
+		if (bucket.favorite == False):
+			bucket.favorite = True
+		else:
+			bucket.favorite = False
+		bucket.save()
+		return HttpResponse(status=200)
+	return HttpResponse(status=403)
 
 @login_required
 def finish(request, bucket_id, item_id):
@@ -117,7 +119,6 @@ def finish(request, bucket_id, item_id):
 		item.save()
 		return HttpResponse(status=200)
 	return HttpResponse(status=403)
-	#return HttpResponseRedirect(reverse('blist:items', args=[item.bucket.pk]))
 
 @login_required
 def search(request):
