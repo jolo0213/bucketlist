@@ -19,8 +19,8 @@
                     </a> {{ item.item_value }}
                 {% else %}
                     <a href="javascript:void(0);" oid='{{ item.pk }}' fin='1'>
-                        <span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span> 
-                    </a> <span title="Completed: {{ item.finish }}" data-placement="right" data-toggle="tooltip">{{ item.item_value }}</span>
+                        <span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' title="Completed: {{ item.finish }}" data-placement="left" data-toggle="tooltip"></span> 
+                    </a> {{ item.item_value }}
                 {% endif %}
             </li>
         {% endfor %}
