@@ -7,9 +7,9 @@
         <td width='20%'><a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a></td>
     {% else %}
         <a href="javascript:void(0);" oid='{{ item.pk }}' fin='1'>
-            <span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span> 
+            <span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' data-placement="left" data-toggle="tooltip" title="Completed: {{ item.finish }}"></span> 
         </a></td>
-        <td width='20%'><a href="{% url 'blist:details' bucket.pk item.pk %}" data-placement="right" data-toggle="tooltip" title="Completed: {{ item.finish }}">{{ item.item_value }}</a></td>
+        <td width='20%'><a href="{% url 'blist:details' bucket.pk item.pk %}">{{ item.item_value }}</a></td>
     {% endif %}
 
     <td width='25%'>

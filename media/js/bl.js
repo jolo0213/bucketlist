@@ -48,7 +48,7 @@ $.ajaxSetup({
     }
 });
 
-/* JQuery UI function section */
+/* Bootstrap function section */
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
