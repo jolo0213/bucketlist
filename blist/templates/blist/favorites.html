@@ -18,11 +18,11 @@
 		    	<li class='list-group-item'>
 		    		{% if item.finish == NULL %} 
 		    			<a href="javascript:void(0);" oid='{{ item.pk }}' fin='0'>
-				            <span style='color:#808080' class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
+				            <span class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
 				        </a> {{ item.item_value }}
 		    		{% else %}
 		    			<a href="javascript:void(0);" oid='{{ item.pk }}' fin='1'>
-				            <span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' title="Completed: {{ item.finish }}" data-placement="left" data-toggle="tooltip"></span> 
+				            <span class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' title="Completed: {{ item.finish }}" data-placement="left" data-toggle="tooltip"></span> 
 				        </a> {{ item.item_value }}
 		    		{% endif %}
 		    	</li>

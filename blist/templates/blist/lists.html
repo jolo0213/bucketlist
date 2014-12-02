@@ -1,13 +1,13 @@
 <div class='panel panel-default'>
     <div class='panel-heading'>
         {% if bucket.favorite == False %}
-            <b><a href="javascript:void(0);" bid="{{ bucket.id }}" fav="0"><span bid="{{ bucket.id }}" style='color:black;font-size:16px' class="glyphicon glyphicon-star-empty togfav" aria-hidden="true"></span></a></b>
+            <a href="javascript:void(0);" bid="{{ bucket.id }}" fav="0"><span bid="{{ bucket.id }}" class="glyphicon glyphicon-star-empty togfav" aria-hidden="true"></span></a>
         {% else %}
-            <b><a href="javascript:void(0);" bid="{{ bucket.id }}" fav="1"><span bid="{{ bucket.id }}" style='color:gold;font-size:16px' class="glyphicon glyphicon-star togfav" aria-hidden="true"></span></a></b>
+            <a href="javascript:void(0);" bid="{{ bucket.id }}" fav="1"><span bid="{{ bucket.id }}" class="glyphicon glyphicon-star togfav" aria-hidden="true"></span></a>
         {% endif %} 
         <a href="{% url 'blist:items' bucket.id %}"><b>{{ bucket.bl_name }}</b></a>
-        <span class="glyphicon glyphicon-trash delete pull-right" aria-hidden="true" data-toggle="modal" data-target="#delete" oid='{{ bucket.pk }}' style='color:#A34747;cursor:pointer;font-size:16px'></span>
-        <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" data-toggle="collapse" href="#{{ bucket.pk }}" aria-controls="{{ bucket.pk }}" style='color:#337533;cursor:pointer;font-size:16px;padding-right:5px'></span>
+        <span class="glyphicon glyphicon-trash delete pull-right" aria-hidden="true" data-toggle="modal" data-target="#delete" oid='{{ bucket.pk }}'></span>
+        <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" data-toggle="collapse" href="#{{ bucket.pk }}" aria-controls="{{ bucket.pk }}"></span>
     </div>
     <div id="{{ bucket.pk }}" class="panel-collapse collapse" role="tabpanel">
         <ul class='list-group itemlist'>
@@ -15,11 +15,11 @@
             <li class='list-group-item'>
                 {% if item.finish == NULL %} 
                     <a href="javascript:void(0);" oid='{{ item.pk }}' fin='0'>
-                        <span style='color:#808080' class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
+                        <span class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
                     </a> {{ item.item_value }}
                 {% else %}
                     <a href="javascript:void(0);" oid='{{ item.pk }}' fin='1'>
-                        <span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' title="Completed: {{ item.finish }}" data-placement="left" data-toggle="tooltip"></span> 
+                        <span class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' title="Completed: {{ item.finish }}" data-placement="left" data-toggle="tooltip"></span> 
                     </a> {{ item.item_value }}
                 {% endif %}
             </li>

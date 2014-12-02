@@ -69,11 +69,11 @@ function togglefav() {
             if ($("a[bid=" + $bid + "]").attr('fav') == '0') {
                 $("a[bid=" + $bid + "]").attr('fav','1');
                 $("a[bid=" + $bid + "]").empty();
-                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" style="color:gold;font-size:16px" class="glyphicon glyphicon-star togfav" aria-hidden="true"></span>');
+                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" class="glyphicon glyphicon-star togfav" aria-hidden="true"></span>');
             } else {
                 $("a[bid=" + $bid + "]").attr('fav','0');
                 $("a[bid=" + $bid + "]").empty();
-                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" style="color:black;font-size:16px" class="glyphicon glyphicon-star-empty togfav" aria-hidden="true"></span>');
+                $("a[bid=" + $bid + "]").append('<span bid="' + $bid + '" class="glyphicon glyphicon-star-empty togfav" aria-hidden="true"></span>');
             };
         },
     });
@@ -90,12 +90,12 @@ function toggledone() {
             if ($("a[oid=" + $oid + "]").attr('fin') == '0') {
                 $('a[oid=' + $oid + ']').attr('fin','1');
                 $('a[oid=' + $oid + ']').empty();
-                $('a[oid=' + $oid + ']').append('<span style="color:green" class="glyphicon glyphicon-check finish" aria-hidden="true" oid="' + $oid + '" bid="' + $bid + '" data-placement="left" data-toggle="tooltip" title="Completed: ' + $now + '"></span> ');
+                $('a[oid=' + $oid + ']').append('<span class="glyphicon glyphicon-check finish" aria-hidden="true" oid="' + $oid + '" bid="' + $bid + '" data-placement="left" data-toggle="tooltip" title="Completed: ' + $now + '"></span> ');
                 $('[data-toggle="tooltip"]').tooltip();
             } else {
                 $('a[oid=' + $oid + ']').attr('fin','0');
                 $('a[oid=' + $oid + ']').empty();
-                $('a[oid=' + $oid + ']').append('<span style="color:#808080" class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid="' + $oid + '" bid="' + $bid + '"></span> ');
+                $('a[oid=' + $oid + ']').append('<span class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid="' + $oid + '" bid="' + $bid + '"></span> ');
             };
         },
     });

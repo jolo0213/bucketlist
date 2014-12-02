@@ -38,10 +38,10 @@
 				<ul class='list-group'>
 					{% for item in items %}
 					<li class='list-group-item'>{% if item.finish == NULL %}
-		    				<span style='color:#808080' class="glyphicon glyphicon-unchecked finish" aria-hidden="true"></span> 
+		    				<span class="glyphicon glyphicon-unchecked finish" aria-hidden="true"></span> 
 		    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}">{{ item.item_value }}</a> 
 		    			{% else %}
-		    				<span style='color:green' class="glyphicon glyphicon-check finish" aria-hidden="true" data-placement="left" data-toggle="tooltip" title="Completed: {{ item.finish }}"></span> 
+		    				<span class="glyphicon glyphicon-check finish" aria-hidden="true" data-placement="left" data-toggle="tooltip" title="Completed: {{ item.finish }}"></span> 
 		    				<a href="{% url 'blist:details' item.bucket.pk item.pk %}">{{ item.item_value }}</a> 
 		   		    	{% endif %} - in list <a href="{% url 'blist:items' item.bucket.id %}">{{ item.bucket }}</a></li>
 					{% endfor %}
