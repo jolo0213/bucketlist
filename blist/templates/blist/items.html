@@ -102,7 +102,7 @@
 <script>
 $(document).ready(function() {
     $('.idesc, .iurl').editable();
-    $('.iurl').off('click');
+    $('.iurl, .idesc').off('click');
 });
 
 $('#AddItem').submit(function() {
@@ -140,11 +140,18 @@ $('#ItemTable').on('click', '.delete', function() {
 
 $('#ItemTable').on('click', '.finish', toggledone);
 
-$('.editurl').on('click',function(e) {
+$('.editurl').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
     $url = $(this).closest('.eurl').find('.editable');
     $url.editable('toggle');
+});
+
+$('.editdesc').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $textarea = $(this).closest('.edesc').find('.editable');
+    $textarea.editable('toggle');
 });
 
 </script>
