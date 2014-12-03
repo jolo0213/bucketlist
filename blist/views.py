@@ -116,7 +116,6 @@ def finish(request, bucket_id, item_id):
 
 @login_required
 def search(request):
-	ivals = json.dumps(list(Item.objects.filter(bucket__owner=request.user).values_list('item_value',flat=True)))
 	error = False
 	if 'q' in request.GET:
 		q = request.GET['q']
@@ -124,8 +123,8 @@ def search(request):
 			error = True
 		else:
 			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
-			return render(request, 'blist/search.html', {'items':item,'query':q,'source':ivals})
-	return render(request, 'blist/search.html', {'error':error, 'source':ivals})
+			return render(request, 'blist/search.html', {'items':item,'query':q})
+	return render(request, 'blist/search.html', {'error':error})
 
 @login_required
 def xu_desc(request, bucket_id, item_id):

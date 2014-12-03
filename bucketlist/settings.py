@@ -61,6 +61,7 @@ WSGI_APPLICATION = 'bucketlist.wsgi.application'
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.auth.context_processors.auth',
+    'blist.contextprocessors.autocomplete',
 )
 
 # Database
