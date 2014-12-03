@@ -15,7 +15,7 @@
     <td width='25%'>
         <div class='eurl'>
         {% if item.item_url %}
-            <span class="iurl" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_url' item.bucket.pk item.pk %}" data-type="url" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-emptytext='No URL' data-toggle="tooltip" data-title="{{ item.item_url }}" data-placement="right">{{ item.item_url|truncatechars:23 }}</span><span class='glyphicon glyphicon-edit pull-right editurl'></span><a href='{{ item.item_url }}' target='_blank'><span class='glyphicon glyphicon-share pull-right goto'></span></a>
+            <span class="iurl" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_url' item.bucket.pk item.pk %}" data-type="url" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-emptytext='No URL' data-toggle="tooltip" data-title="{{ item.item_url }}" data-placement="right">{{ item.item_url|truncatechars:20 }}</span><span class='glyphicon glyphicon-edit pull-right editurl'></span><a href='{{ item.item_url }}' target='_blank'><span class='glyphicon glyphicon-share pull-right goto'></span></a>
         {% else %}
             <span class="iurl" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_url' item.bucket.pk item.pk %}" data-type="url" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-emptytext='No URL'></span> <span class='glyphicon glyphicon-edit pull-right editurl'></span>
         {% endif %}
