@@ -14,7 +14,7 @@ a:link, a:visited, a:hover, a:active {
 	width:100%;
 }
 
-a.editable-empty {
+.editable-empty {
   	color: gray;
   	font-style: italic;
 }

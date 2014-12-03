@@ -13,7 +13,7 @@
     {% endif %}
 
     <td width='25%'>
-        <a href="#" class="iurl" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_url' item.bucket.pk item.pk %}" data-type="url" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-emptytext='No URL'>{{ item.item_url }}</a>
+        <span class="iurl eurl" data-pk="{{ item.pk }}" data-url="{% url 'blist:xu_url' item.bucket.pk item.pk %}" data-type="url" data-params="{csrfmiddlewaretoken:'{{csrf_token}}'}" data-emptytext='No URL'>{{ item.item_url|truncatechars:20 }}</span> <span class='glyphicon glyphicon-pencil pull-right editurl'>
     </td>
 
     <td width='45%'>
