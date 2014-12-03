@@ -55,4 +55,11 @@ span.glyphicon-chevron-down {
 
 .editurl, .editdesc {
 	cursor:pointer;
+	color: orange;
+}
+
+.goto {
+	padding-right:3px;
+	color: navy;
+	cursor: pointer;
 }
