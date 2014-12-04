@@ -75,12 +75,12 @@
 
 <!-- Modal dialogs -->
 
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delitem" aria-hidden="true">
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="dellist" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="delitem">Delete?</h4>
+                <h4 class="modal-title" id="dellist">Delete?</h4>
             </div>
             <div class="modal-body">
                 Are you sure you want to delete this item?
@@ -119,14 +119,14 @@ $('#AddItem').submit(function() {
     return false;
 });
 
-$('.confirm').click(function() {
+$('#delete').on('click', '.confirm', function() {
     $.ajax({
         url: '/blist/' + $bid + '/' + $oid + '/delete/', 
         method: 'POST',
         success: function() {
             $('.delete[oid=' + $oid + ']').closest('tr').remove();
         },
-    })
+    });
 });
 
 $('#ItemTable').on('click', '.delete', function() {
