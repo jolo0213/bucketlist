@@ -32,14 +32,21 @@
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="/blist/">Bucket List</a>
             </div>
-            {% if user.is_authenticated %}
-            <div class="navbar-text">
-                Hello {{ user.username }}!
-            </div>
-            {% endif %}
-            <div>
+
+            <div class="collapse navbar-collapse bs-navbar-collapse">
+                {% if user.is_authenticated %}
+                <div class="navbar-text">
+                    Hello {{ user.username }}!
+                </div>
+                {% endif %}
                 {% if user.is_authenticated %}
                 <ul class='nav navbar-nav'>
                     <li><a href="/blist/favorites/"><span class="glyphicon glyphicon-star"></span> Favorites</a></li>
