@@ -1,1 +1,1 @@
-web: gunicorn blist.wsgi --log-file -
+web: gunicorn bucketlist.wsgi --log-file -
