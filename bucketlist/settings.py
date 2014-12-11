@@ -122,9 +122,9 @@ STATICFILES_FINDERS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'de2c9q8pefh099',
-        'USER': 'iagwrhxipgonrm',
-        'PASSWORD': '7ew-Q6_1CoT2bE_rJladWTDVtl',
+        'NAME': 'ddbe89u5o340lb',
+        'USER': 'pjitrccjhuqxmu',
+        'PASSWORD': '7sziWBEYF8Ov9UksYwu6dMdE4k',
         'HOST':'ec2-54-235-193-41.compute-1.amazonaws.com',
         'PORT':'5432'
     }
