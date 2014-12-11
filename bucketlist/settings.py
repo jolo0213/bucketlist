@@ -91,16 +91,41 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-STATICFILES_DIR = os.path.join(BASE_DIR, 'static')
-
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/blist/'
 
-MEDIA_URL = '/media/'
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+# Static asset configuration
+import os
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'de2c9q8pefh099',
+        'USER': 'iagwrhxipgonrm',
+        'PASSWORD': '7ew-Q6_1CoT2bE_rJladWTDVtl',
+        'HOST':'ec2-54-235-193-41.compute-1.amazonaws.com',
+        'PORT':'5432'
+    }
+}

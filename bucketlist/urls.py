@@ -12,5 +12,4 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^blist/', include('blist.urls', namespace="blist")),
 	url(r'^search/$', views.search, name='search'),
-	url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )

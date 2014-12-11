@@ -1,0 +1,61 @@
+a:link, a:visited, a:hover, a:active {
+    text-decoration:none;
+}
+
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
+.accordion {
+	width:100%;
+}
+
+.editable-empty {
+  	color: gray;
+  	font-style: italic;
+}
+
+span.glyphicon-unchecked {
+	color: #808080;
+}
+
+span.glyphicon-check {
+	color: green;
+}
+
+span.glyphicon-chevron-down {
+	color:#337533;
+	cursor:pointer;
+	font-size:16px;
+	padding-right:5px;
+}
+
+.togfav {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.glyphicon-star-empty.togfav {
+	color: gray;
+}
+
+.glyphicon-star.togfav {
+	color: gold;
+}
+
+.glyphicon-trash.delete {
+	color:#A34747;
+	cursor:pointer;
+	font-size:16px;
+}
+
+.editurl, .editdesc {
+	cursor:pointer;
+	color: goldenrod;
+}
+
+.goto {
+	padding-right:3px;
+	color: navy;
+	cursor: pointer;
+}
