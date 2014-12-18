@@ -5,6 +5,7 @@ from blist import views
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),
 	url(r'^favorites/$', views.index, {'faves':True}, name='favorites'),
+	url(r'^shared/$', views.shared_index, name='shared'),
 	url(r'^(?P<bucket_id>\d+)/$', views.items, name='items'),
 	url(r'^(?P<bucket_id>\d+)/share/$', views.share, name='share'),
 	url(r'^(?P<bucket_id>\d+)/add_editor/$', views.add_editor, name='add_editor'),		

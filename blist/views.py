@@ -38,7 +38,7 @@ def index(request, faves=False):
 
 @login_required
 def shared_index(request):
-	pass
+	return render(request,'blist/shared_index.html')
 
 @login_required
 def items(request, bucket_id):
