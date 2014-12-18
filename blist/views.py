@@ -155,9 +155,9 @@ def shared_list(request, bucket_id):
 	return render(request,'blist/shared_items.html',{'bucket':bucket,'form':form})
 
 @login_required
-def shared_items(request, bucket_id):
-	bucket = get_object_or_404(BL,pk=bucket_id)
-	return render(request, 'blist/shared_list.html',{'bucket':bucket})
+def shared_detail(request, bucket_id, item_id):
+	item = get_object_or_404(Item,pk=item_id)
+	return render(request,'blist/shared_detail.html', {'item':item,})
 
 # Anonymous Views
 
