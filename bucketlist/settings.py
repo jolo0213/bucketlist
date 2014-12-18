@@ -115,21 +115,13 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ddbe89u5o340lb',
+        'USER': 'pjitrccjhuqxmu',
+        'PASSWORD': '7sziWBEYF8Ov9UksYwu6dMdE4k',
+        'HOST':'ec2-54-235-193-41.compute-1.amazonaws.com',
+        'PORT':'5432'
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ddbe89u5o340lb',
-            'USER': 'pjitrccjhuqxmu',
-            'PASSWORD': '7sziWBEYF8Ov9UksYwu6dMdE4k',
-            'HOST':'ec2-54-235-193-41.compute-1.amazonaws.com',
-            'PORT':'5432'
-        }
-    }
+}
