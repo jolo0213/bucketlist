@@ -3,32 +3,23 @@
 {% block content %}
 
 <div class="panel panel-default">
-    <div class="panel-heading"><h4>My Lists</h4></div>
+    <div class="panel-heading"><h4>Shared Lists</h4></div>
 </div>
 
 <div class="panel-group" role="tablist" aria-multiselectable="true" id="ListGroup">
-    {% for bucket in bucket_list %}
-        {% include "blist/lists.html" %}
-    {% endfor %}
-</div>
-
-<!-- Add Form -->
-
-<div class='panel panel-default'>
-    <div class='panel-heading'>Add List</div>
-    <div class='panel-body' id="AddBox">
-        <form action="." method="post" id='AddForm'>
-        	{% csrf_token %}
-            <div class='input-group'>
-                {{ form.name }}
-                <span class='input-group-btn'>
-                    <button type='submit' class='btn btn-default'>
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </span>
+    {% if lists %}
+        {% for bucket in lists %}
+            {% include 'blist/shared_lists_table.html' %}
+        {% endfor %}
+    {% else %}
+        <div class='panel panel-default'>
+            <div class='panel-body'>
+                <div class='alert alert-info' role='alert'>
+                    Oh no, it looks like nobody has shared any lists with you yet!
+                </div>
             </div>
-        </form>
-    </div>
+        </div>
+    {% endif %}
 </div>
 
 <!-- Modal dialogs -->
@@ -54,22 +45,6 @@
 <!-- Additional Javascript -->
 
 <script>
-$('#AddForm').submit(function() {
-    $.ajax({
-        type: $('#AddForm').attr('method'),
-        url: $('#AddForm').attr('action'),
-        data: $('#AddForm').serialize(),
-        success: function(data) {
-            $('div[role=alert]').remove();
-            $('#AddForm')[0].reset();
-            $('#ListGroup').append(data);
-        },
-        error: function() {
-            $('#AddBox').append('<br><div class="alert alert-danger" role="alert"><p>Please enter a list name to add</p></div>');
-        },
-    });
-    return false;
-});
 
 $('.confirm').click(function() {
     $.ajax({

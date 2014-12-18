@@ -20,6 +20,9 @@ class BL(models.Model):
 	def get_share_url(self):
 		return 'http://' + str(Site.objects.get(id=1)) + str(self.get_absolute_url()) + 'share'
 
+	def get_editors(self):
+		return ', '.join(self.sharedlist_set.values_list('name', flat=True))
+
 	def __unicode__(self):
 		return self.name
 
@@ -32,3 +35,10 @@ class Item(models.Model):
 
 	def __unicode__(self):
 		return self.item_value
+
+class SharedList(models.Model):
+	name = models.CharField(max_length=100)
+	bucket = models.ForeignKey(BL)
+
+	def __unicode__(self):
+		return str(self.name) + " can edit " + str(self.bucket)

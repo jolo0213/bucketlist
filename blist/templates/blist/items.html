@@ -2,9 +2,6 @@
 
 {% block title %} | {{ bucket.name }}{% endblock %}
 
-{% block head %}
-{% endblock %}
-
 {% block content %}
 
 <div class="panel panel-default">
@@ -23,7 +20,7 @@
             {% endfor %}
         </table>
     </div>
-
+    <hr>
     <div class='panel-body'>
         <div class="alert alert-success" role="alert"><p>Click on an item name to view its details<br>Click on its fields to edit them</p></div>
     </div>
@@ -41,31 +38,48 @@
             <div class='panel-body' id="AddBox">
                 <form action="." method="post" id='AddItem'>
                     {% csrf_token %}
-                    <table class="form-table">
-                    <tr>
-                        <td>Item Name: </td>
-                        <td>{{ form.item_value }}</td>
-                    </tr>
-                    <tr>
-                        <td>URL (optional): </td>
-                        <td>{{ form.item_url }}</td>
-                    </tr>
-                    <tr>
-                        <td>Description (optional): </td>
-                        <td>{{ form.item_desc }}</td>
-                    </tr>
-                    </table>
-                    <tr><td><input type="submit" class="btn-xs btn-primary" value='Add Item'></td></tr>
+                    {{ form.item_value }}
+                    <br>
+                    {{ form.item_url }}
+                    <br>
+                    {{ form.item_desc }}
+                    <br>
+                    <input type="submit" class="btn btn-primary" value='Add Item'>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Add Editor Form -->
+<div class="panel-default">
+    <div class='panel panel-default'>
+        <div class='panel-heading'>
+            <b>Add Editor</b>
+        </div>
+
+        <div class='panel-body'>
+            <form action="{% url 'blist:add_editor' bucket.pk %}" method="post" id='addEditor'>
+                {% csrf_token %}
+                <div class='input-group'>
+                    {{ shared.name }}
+                    <span class='input-group-btn'>
+                        <button type='submit' class='btn btn-default'>
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Anonymous Share Panel -->
+
 <div class="panel panel-default">
     <div class="panel-heading"><b>Share This List</b></div>
     <div class="panel-body">
-        <input type='text' value='{{ bucket.get_share_url }}' size='30' readonly></input>
+        <input type='text' value='{{ bucket.get_share_url }}' class='form-control' readonly></input>
     </div>
 </div>
 
@@ -99,6 +113,20 @@
 $(document).ready(function() {
     $('.idesc, .iurl').editable();
     $('.iurl, .idesc').off('click');
+});
+
+$('#addEditor').submit(function() {
+    mydata = $('#addEditor').serialize();
+    alert(mydata);
+    $.ajax({
+        type: $('#addEditor').attr('method'),
+        url: $('#addEditor').attr('action'),
+        data: mydata,
+        success: function() {
+            alert(mydata);
+        },
+    });
+    return false;
 });
 
 $('#AddItem').submit(function() {

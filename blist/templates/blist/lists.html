@@ -7,7 +7,7 @@
         {% endif %} 
         <a href="{% url 'blist:items' bucket.id %}"><b>{{ bucket.name }}</b></a>
         <span class="glyphicon glyphicon-trash delete pull-right" aria-hidden="true" data-toggle="modal" data-target="#delete" oid='{{ bucket.pk }}'></span>
-        <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" data-toggle="collapse" href="#{{ bucket.pk }}" aria-controls="{{ bucket.pk }}"></span>
+        <span class="glyphicon glyphicon-chevron-down pull-right main-list" aria-hidden="true" data-toggle="collapse" href="#{{ bucket.pk }}" aria-controls="{{ bucket.pk }}"></span>
     </div>
     <div id="{{ bucket.pk }}" class="panel-collapse collapse" role="tabpanel">
         <ul class='list-group itemlist'>
