@@ -38,7 +38,12 @@ def index(request, faves=False):
 
 @login_required
 def shared_index(request):
-	return render(request,'blist/shared_index.html')
+	shared = SharedList.objects.filter(name=request.user).values_list('bucket_id',flat=True)
+	bls = []
+	for bl in shared:
+		current = BL.objects.filter(pk=bl)
+		bls.append(current[0])
+	return render(request,'blist/shared_index.html',{'lists':bls})
 
 @login_required
 def items(request, bucket_id):

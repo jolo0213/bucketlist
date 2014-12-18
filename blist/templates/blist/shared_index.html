@@ -7,8 +7,30 @@
 </div>
 
 <div class="panel-group" role="tablist" aria-multiselectable="true" id="ListGroup">
-    {% for bucket in bucket_list %}
-        {% include "blist/lists.html" %}
+    {% for bucket in lists %}
+        <div class='panel panel-default'>
+            <div class='panel-heading'>
+                <a href="{% url 'blist:items' bucket.id %}"><b>{{ bucket.name }}</b></a>
+                <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true" data-toggle="collapse" href="#{{ bucket.pk }}" aria-controls="{{ bucket.pk }}"></span>
+            </div>
+            <div id="{{ bucket.pk }}" class="panel-collapse collapse" role="tabpanel">
+                <ul class='list-group itemlist'>
+                {% for item in bucket.item_set.all %}
+                    <li class='list-group-item'>
+                        {% if item.finish == none %} 
+                            <a href="javascript:void(0);" oid='{{ item.pk }}' fin='0'>
+                                <span class="glyphicon glyphicon-unchecked finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}'></span>
+                            </a> {{ item.item_value }}
+                        {% else %}
+                            <a href="javascript:void(0);" oid='{{ item.pk }}' fin='1'>
+                                <span class="glyphicon glyphicon-check finish" aria-hidden="true" oid='{{ item.pk }}' bid='{{ item.bucket.pk }}' title="Completed: {{ item.finish }}" data-placement="left" data-toggle="tooltip"></span> 
+                            </a> {{ item.item_value }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
     {% endfor %}
 </div>
 
