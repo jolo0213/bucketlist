@@ -1,7 +1,7 @@
 from django.forms import ModelForm, Textarea
 from django import forms
 
-from blist.models import BL, Item
+from blist.models import BL, Item, SharedList
 
 class ItemForm(ModelForm):
 	class Meta:
@@ -13,3 +13,9 @@ class BLForm(ModelForm):
 	class Meta:
 		model = BL
 		fields = ('name',)
+
+class SharedForm(ModelForm):
+	class Meta:
+		model = SharedList
+		fields = ('name',)
+		

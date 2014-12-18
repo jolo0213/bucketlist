@@ -62,10 +62,36 @@
     </div>
 </div>
 
+<!-- Add Editor Form -->
+<div class="panel-default">
+    <div class='panel panel-default'>
+        <div class='panel-heading'>
+            <b>Add Editor</b>
+        </div>
+
+        <div class='panel-body'>
+            <form action="{% url 'blist:add_editor' bucket.pk %}" method="post" id='addEditor'>
+                {% csrf_token %}
+                <div class='input-group'>
+                    {{ shared.name }}
+                    <!--<input type='text' placeholder='Username' class='form-control'>-->
+                    <span class='input-group-btn'>
+                        <button type='submit' class='btn btn-default'>
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Anonymous Share Panel -->
+
 <div class="panel panel-default">
     <div class="panel-heading"><b>Share This List</b></div>
     <div class="panel-body">
-        <input type='text' value='{{ bucket.get_share_url }}' size='30' readonly></input>
+        <input type='text' value='{{ bucket.get_share_url }}' class='form-control' readonly></input>
     </div>
 </div>
 
@@ -99,6 +125,18 @@
 $(document).ready(function() {
     $('.idesc, .iurl').editable();
     $('.iurl, .idesc').off('click');
+});
+
+$('#addEditor').submit(function() {
+    $.ajax({
+        type: $('#addEditor').attr('method'),
+        url: $('#addEditor').attr('action'),
+        data: $('#addEditor').serialize(),
+        success: function() {
+            alert("It worked!");
+        },
+    });
+    return false;
 });
 
 $('#AddItem').submit(function() {

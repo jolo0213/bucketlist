@@ -9,8 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 
-from blist.models import BL, Item
-from blist.forms import ItemForm, BLForm
+from blist.models import BL, Item, SharedList
+from blist.forms import ItemForm, BLForm, SharedForm
 
 # Create your views here.
 @login_required
@@ -50,7 +50,24 @@ def items(request, bucket_id):
 				return HttpResponse(status=400)
 	else:
 		add_form = ItemForm()
-	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form,})
+		shared_form = SharedForm()
+	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form,'shared':shared_form})
+
+
+@login_required
+def add_editor(request, bucket_id):
+	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
+	if request.method == 'POST':
+		form = SharedForm(request.POST)
+		if request.is_ajax():
+			if form.is_valid():
+				editor = form.save(commit=False)
+				editor.bucket = bucket
+				editor.save()
+				return HttpResponse(status=200)
+			else:
+				return HttpResponse(status=400)
+	return HttpResponse(status=200)
 
 def share(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id)
