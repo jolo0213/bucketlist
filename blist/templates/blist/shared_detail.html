@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %} | {{ item.item_value }}{% endblock %}
+
+{% block content %}
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>{{ item.bucket }} | {{ item.item_value }}</h4></div>
+
+	<div class='panel-body'>
+		<table class='table-striped table-condensed' width="100%">
+			<tr>
+				<th width='20%'><b>Name:</b></th>
+				<td width='80%'><a href="#" class='iname'>{{ item.item_value }}</a></td>
+			</tr>
+			{% if item.finish != NULL %} 
+			<tr>
+				<th width='20%'><b>Completed:</b></th>
+				<td width='80%'><a href="#" class='idate'>{{ item.finish }}</a></td>
+			</tr>
+			{% endif %}
+			<tr>
+				<th width='20%'><b>URL: </b></th>
+				<td width='80%'><a href="#" class="iurl">{{ item.item_url }}</a></td>
+			</tr>
+			<tr>
+				<th width='20%'><b>Description: </b></th>
+				<td width='80%'><a href="#" class="idesc">{{ item.item_desc }}</a></td>
+			</tr>
+		</table>
+	</div>
+	<div class='panel-body'>
+		<div class="alert alert-success" role="alert"><p>Click on a field to edit its entry</p></div>
+	</div>
+</div>
+
+<a href="{% url 'blist:shared_list' item.bucket.id %}">
+	<button type="button" class="btn btn-primary">
+    	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+	</button>
+</a>
+
+<script>
+$('.iname').editable({
+	type: 'text',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_name" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+	validate: function(value) {
+    	if($.trim(value) == '') {
+    		return 'Please enter an item name';
+    	}
+    },
+});
+
+$('.idate').editable({
+	type: 'combodate',
+	format: 'YYYY-MM-DD',
+	viewformat: 'MMM. DD, YYYY',
+	template: 'MMM / DD / YYYY',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_date" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}", 
+});
+
+$('.idesc').editable({
+	type: 'textarea',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_desc" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+	emptytext: "No description"
+});
+
+$('.iurl').editable({
+	type: 'url',
+	pk: '{{ item.pk }}',
+	url: '{% url "blist:xu_url" item.bucket.pk item.pk %}',
+	params: "{csrfmiddlewaretoken:'{{csrf_token}}'}",
+	emptytext: 'No URL'
+});
+</script>
+
+{% endblock %}
