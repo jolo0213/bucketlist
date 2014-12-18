@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
+from django.contrib.auth.models import User
 
 from blist.models import BL, Item, SharedList
 from blist.forms import ItemForm, BLForm, SharedForm
@@ -34,6 +35,10 @@ def index(request, faves=False):
 	else:
 		add_list_form = BLForm()
 	return render(request,'blist/index.html', {'bucket_list':bucket_list,'form':add_list_form,})
+
+@login_required
+def shared_index(request):
+	pass
 
 @login_required
 def items(request, bucket_id):
