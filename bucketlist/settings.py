@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'j3%-_sby6quws(&$!40+jiy2e0)i27uxb)a_e1*9)oph&036-5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -70,16 +70,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     #'blist.contextprocessors.autocomplete',
 )
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -125,13 +115,21 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ddbe89u5o340lb',
-        'USER': 'pjitrccjhuqxmu',
-        'PASSWORD': '7sziWBEYF8Ov9UksYwu6dMdE4k',
-        'HOST':'ec2-54-235-193-41.compute-1.amazonaws.com',
-        'PORT':'5432'
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ddbe89u5o340lb',
+            'USER': 'pjitrccjhuqxmu',
+            'PASSWORD': '7sziWBEYF8Ov9UksYwu6dMdE4k',
+            'HOST':'ec2-54-235-193-41.compute-1.amazonaws.com',
+            'PORT':'5432'
+        }
+    }
