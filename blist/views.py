@@ -80,7 +80,7 @@ def details(request, bucket_id, item_id):
 @login_required
 def delete_item(request, bucket_id, item_id):
 	if request.is_ajax():
-		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+		item = get_object_or_404(Item,pk=item_id)
 		item.delete()
 		return HttpResponse(status=200)
 	return HttpResponse(status=403)
@@ -105,7 +105,7 @@ def mod_favorite(request, bucket_id):
 @login_required
 def finish(request, bucket_id, item_id):
 	if request.is_ajax():
-		item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+		item = get_object_or_404(Item,pk=item_id)
 		if item.finish != None:
 			item.finish = None
 		else:
@@ -147,7 +147,7 @@ def shared_list(request, bucket_id):
 				bucket_item = form.save(commit=False)
 				bucket_item.bucket = bucket
 				bucket_item.save()
-				return HttpResponse(render_to_string('blist/item_table.html', {'item':bucket_item,'bucket':bucket}))
+				return HttpResponse(render_to_string('blist/shared_items_table.html', {'item':bucket_item,'bucket':bucket}))
 			else:
 				return HttpResponse(status=400)
 	else:
@@ -185,7 +185,7 @@ def register(request):
 
 @login_required
 def xu_desc(request, bucket_id, item_id):
-	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	item = get_object_or_404(Item,pk=item_id)
 	if request.method == 'POST':
 		if request.is_ajax():
 			new_desc = request.POST.get('value')
@@ -195,7 +195,7 @@ def xu_desc(request, bucket_id, item_id):
 
 @login_required
 def xu_url(request, bucket_id, item_id):
-	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	item = get_object_or_404(Item,pk=item_id)
 	if request.method == 'POST':
 		if request.is_ajax():
 			new_url = request.POST.get('value')
@@ -205,7 +205,7 @@ def xu_url(request, bucket_id, item_id):
 
 @login_required
 def xu_name(request, bucket_id, item_id):
-	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	item = get_object_or_404(Item,pk=item_id)
 	if request.method == 'POST':
 		if request.is_ajax():
 			new_name = request.POST.get('value')
@@ -215,7 +215,7 @@ def xu_name(request, bucket_id, item_id):
 
 @login_required
 def xu_date(request, bucket_id, item_id):
-	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
+	item = get_object_or_404(Item,pk=item_id)
 	if request.method == 'POST':
 		if request.is_ajax():
 			new_date = request.POST.get('value')
