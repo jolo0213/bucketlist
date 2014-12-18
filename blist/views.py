@@ -36,14 +36,7 @@ def index(request, faves=False):
 		add_list_form = BLForm()
 	return render(request,'blist/index.html', {'bucket_list':bucket_list,'form':add_list_form,})
 
-@login_required
-def shared_index(request):
-	shared = SharedList.objects.filter(name=request.user).values_list('bucket_id',flat=True)
-	bls = []
-	for bl in shared:
-		current = BL.objects.filter(pk=bl)
-		bls.append(current[0])
-	return render(request,'blist/shared_index.html',{'lists':bls})
+
 
 @login_required
 def items(request, bucket_id):
@@ -79,30 +72,10 @@ def add_editor(request, bucket_id):
 				return HttpResponse(status=400)
 	return HttpResponse(status=200)
 
-def share(request, bucket_id):
-	bucket = get_object_or_404(BL,pk=bucket_id)
-	return render(request,'blist/share.html', {'bucket':bucket,})
-
-def share_details(request, bucket_id, item_id):
-	item = get_object_or_404(Item,pk=item_id)
-	return render(request,'blist/share_details.html', {'item':item,})
-
 @login_required
 def details(request, bucket_id, item_id):
 	item = get_object_or_404(Item,pk=item_id,bucket__owner=request.user)
 	return render(request,'blist/details.html', {'item':item,})
-
-def register(request):
-	if request.user.is_authenticated():
-		HttpResponseRedirect('/blist/')
-	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			new_user = form.save()
-			return HttpResponseRedirect("/blist/")
-	else:
-		form = UserCreationForm()
-	return render(request, "blist/register.html", {'form': form,})
 
 @login_required
 def delete_item(request, bucket_id, item_id):
@@ -152,6 +125,63 @@ def search(request):
 			item = Item.objects.filter(item_value__icontains=q,bucket__owner=request.user)
 			return render(request, 'blist/search.html', {'items':item,'query':q})
 	return render(request, 'blist/search.html', {'error':error})
+
+# Shared Views
+
+@login_required
+def shared_index(request):
+	shared = SharedList.objects.filter(name=request.user).values_list('bucket_id',flat=True)
+	bls = []
+	for bl in shared:
+		current = BL.objects.filter(pk=bl)
+		bls.append(current[0])
+	return render(request,'blist/shared_index.html',{'lists':bls if len(bls) else None})
+
+@login_required
+def shared_list(request, bucket_id):
+	bucket = get_object_or_404(BL,pk=bucket_id)
+	if request.method == 'POST':
+		if request.is_ajax():
+			form = ItemForm(request.POST)
+			if form.is_valid():
+				bucket_item = form.save(commit=False)
+				bucket_item.bucket = bucket
+				bucket_item.save()
+				return HttpResponse(render_to_string('blist/item_table.html', {'item':bucket_item,'bucket':bucket}))
+			else:
+				return HttpResponse(status=400)
+	else:
+		form = ItemForm()
+	return render(request,'blist/shared_items.html',{'bucket':bucket,'form':form})
+
+@login_required
+def shared_items(request, bucket_id):
+	bucket = get_object_or_404(BL,pk=bucket_id)
+	return render(request, 'blist/shared_list.html',{'bucket':bucket})
+
+# Anonymous Views
+
+def share(request, bucket_id):
+	bucket = get_object_or_404(BL,pk=bucket_id)
+	return render(request,'blist/share.html', {'bucket':bucket,})
+
+def share_details(request, bucket_id, item_id):
+	item = get_object_or_404(Item,pk=item_id)
+	return render(request,'blist/share_details.html', {'item':item,})
+
+def register(request):
+	if request.user.is_authenticated():
+		HttpResponseRedirect('/blist/')
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			new_user = form.save()
+			return HttpResponseRedirect("/blist/")
+	else:
+		form = UserCreationForm()
+	return render(request, "blist/register.html", {'form': form,})
+
+# X-Editable Views
 
 @login_required
 def xu_desc(request, bucket_id, item_id):
