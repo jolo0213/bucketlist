@@ -112,8 +112,14 @@
 $('#addEditor').submit(function() {
     current =  '{{request.user }}';
     editors = '{{ existing|safe }}';
+    users = '{{ users|safe }}';
     addition = $('#username').val();
-    if ($('#username').val() == current) {
+    if (users.indexOf(addition) == -1) {
+        $('div[role=alert]').remove();
+        $('#username').val('');
+        $('#editorPanel').prepend('<div class="alert alert-danger" role="alert"><p>That username does not exist!</p></div>');
+        return false
+    } else if ($('#username').val() == current) {
         $('div[role=alert]').remove();
         $('#username').val('');
         $('#editorPanel').prepend('<div class="alert alert-danger" role="alert"><p>You already have editing privileges for this list!</p></div>');
@@ -130,7 +136,7 @@ $('#addEditor').submit(function() {
             data: $('#addEditor').serialize(),
             success: function() {
                 $('div[role=alert]').remove();
-                $('#editors').append('<li class="list-group-item">'+addition+'</li>');
+                $('#editors').append('<li class="list-group-item">'+addition+'</li>');                
                 $('#username').val('');
             },
         });

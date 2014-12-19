@@ -40,6 +40,7 @@ def index(request, faves=False):
 def items(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
 	editors = SharedList.objects.filter(bucket=bucket.id).values_list('name',flat=True)
+	users = User.objects.all().values_list('username',flat=True)
 	if request.method == 'POST':
 		if request.is_ajax():
 			add_form = ItemForm(request.POST)
@@ -58,8 +59,8 @@ def items(request, bucket_id):
 		'form':add_form,
 		'shared':shared_form,
 		'editors':editors,
-		'existing':json.dumps(list(editors)),})
-
+		'existing':json.dumps(list(editors)),
+		'users':json.dumps(list(users)),})
 
 @login_required
 def add_editor(request, bucket_id):
