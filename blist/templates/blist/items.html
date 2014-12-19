@@ -64,6 +64,11 @@
                     </span>
                 </div>
             </form>
+            <br>
+            <ul class='list-group' id='editors'>
+            {% for name in editors %}
+                <li class='list-group-item'>{{ name }}</li>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -106,8 +111,17 @@
 <script>
 $('#addEditor').submit(function() {
     current =  '{{request.user }}';
+    editors = '{{ existing|safe }}';
+    addition = $('#username').val();
     if ($('#username').val() == current) {
+        $('div[role=alert]').remove();
+        $('#username').val('');
         $('#editorPanel').prepend('<div class="alert alert-danger" role="alert"><p>You already have editing privileges for this list!</p></div>');
+        return false
+    } else if (editors.indexOf(addition) > -1) {
+        $('div[role=alert]').remove();
+        $('#editorPanel').prepend('<div class="alert alert-danger" role="alert"><p>'+addition+' already has editing privileges for this list!</p></div>');
+        $('#username').val('');
         return false
     } else {
         $.ajax({
@@ -116,6 +130,8 @@ $('#addEditor').submit(function() {
             data: $('#addEditor').serialize(),
             success: function() {
                 $('div[role=alert]').remove();
+                $('#editors').append('<li class="list-group-item">'+addition+'</li>');
+                $('#username').val('');
             },
         });
         return false;

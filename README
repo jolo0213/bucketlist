@@ -9,8 +9,6 @@ Current Features:
  - Mark favorite lists for easy lookup
  - Check off completed items
  - Search for items
- - Sharing to non registered users
- - Edit item details on the spot
-
-Future Additions:
- - Sharing edit permissions
+ - Sharing viewable list to non-registered users
+ - Edit item details on same page
+ - Sharing edit permissions with registered users

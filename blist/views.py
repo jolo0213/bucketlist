@@ -39,6 +39,7 @@ def index(request, faves=False):
 @login_required
 def items(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)
+	editors = SharedList.objects.filter(bucket=bucket.id).values_list('name',flat=True)
 	if request.method == 'POST':
 		if request.is_ajax():
 			add_form = ItemForm(request.POST)
@@ -52,7 +53,12 @@ def items(request, bucket_id):
 	else:
 		add_form = ItemForm()
 		shared_form = SharedForm()
-	return render(request,'blist/items.html', {'bucket':bucket,'form':add_form,'shared':shared_form})
+	return render(request,'blist/items.html', {
+		'bucket':bucket,
+		'form':add_form,
+		'shared':shared_form,
+		'editors':editors,
+		'existing':json.dumps(list(editors)),})
 
 
 @login_required
