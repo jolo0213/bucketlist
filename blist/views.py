@@ -36,8 +36,6 @@ def index(request, faves=False):
 		add_list_form = BLForm()
 	return render(request,'blist/index.html', {'bucket_list':bucket_list,'form':add_list_form,})
 
-
-
 @login_required
 def items(request, bucket_id):
 	bucket = get_object_or_404(BL,pk=bucket_id,owner=request.user)

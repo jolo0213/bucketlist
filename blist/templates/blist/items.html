@@ -52,7 +52,7 @@
             <b>Add Editor</b>
         </div>
 
-        <div class='panel-body'>
+        <div class='panel-body' id='editorPanel'>
             <form action="{% url 'blist:add_editor' bucket.pk %}" method="post" id='addEditor'>
                 {% csrf_token %}
                 <div class='input-group'>
@@ -105,17 +105,21 @@
 
 <script>
 $('#addEditor').submit(function() {
-    mydata = $('#addEditor').serialize();
-    alert(mydata);
-    $.ajax({
-        type: $('#addEditor').attr('method'),
-        url: $('#addEditor').attr('action'),
-        data: mydata,
-        success: function() {
-            alert(mydata);
-        },
-    });
-    return false;
+    current =  '{{request.user }}';
+    if ($('#username').val() == current) {
+        $('#editorPanel').prepend('<div class="alert alert-danger" role="alert"><p>You already have editing privileges for this list!</p></div>');
+        return false
+    } else {
+        $.ajax({
+            type: $('#addEditor').attr('method'),
+            url: $('#addEditor').attr('action'),
+            data: $('#addEditor').serialize(),
+            success: function() {
+                $('div[role=alert]').remove();
+            },
+        });
+        return false;
+    };
 });
 
 $('#AddItem').submit(function() {

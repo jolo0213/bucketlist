@@ -28,7 +28,8 @@ class BLForm(ModelForm):
 		fields = ('name',)
 		widgets = {
 			'name': forms.TextInput(attrs={
-				'placeholder':'List Name','class':'form-control'
+				'placeholder':'List Name',
+				'class':'form-control',
 				}),
 			}
 
@@ -38,6 +39,8 @@ class SharedForm(ModelForm):
 		fields = ('name',)
 		widgets = {
 			'name': forms.TextInput(attrs={
-				'placeholder':'Username','class':'form-control'
+				'placeholder':'Username',
+				'class':'form-control',
+				'id':'username',
 				}),
 			}
